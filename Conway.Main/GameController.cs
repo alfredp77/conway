@@ -4,27 +4,36 @@ public class GameController
 {
     private readonly IUserInputOutput _userInputOutput;
     private readonly IAction[] _actions;
+    private readonly Func<GameState, bool> _endCondition;
 
-    public GameController(IUserInputOutput userInputOutput, IAction[] actions)
+    public GameController(IUserInputOutput userInputOutput, IAction[] actions, Func<GameState, bool>? endCondition = null)
     {
         _userInputOutput = userInputOutput;
         _actions = actions;
+        _endCondition = endCondition ?? (gs => gs.IsEnd);
     }
 
     public void Run()
     {
-        _userInputOutput.WriteLine("Welcome to Conway's Game of Life!");
-        foreach (var action in _actions)
+        var gameState = new GameState();
+        do
         {
-            _userInputOutput.WriteLine($"[{action.Id}] {action.Description}");
-        }
-        _userInputOutput.WriteLine("Please enter your selection");
+            _userInputOutput.WriteLine("Welcome to Conway's Game of Life!");
+            foreach (var action in _actions)
+            {
+                _userInputOutput.WriteLine($"[{action.Id}] {action.Description}");
+            }
+
+            _userInputOutput.WriteLine("Please enter your selection");
+
+            var selectedActionId = _userInputOutput.ReadLine();
+            if (!string.IsNullOrEmpty(selectedActionId))
+            {
+                var selectedAction = _actions.Single(a => a.Id == selectedActionId);
+                gameState = selectedAction.Execute();
+            }
+        } while (!_endCondition(gameState));
         
-        var selectedActionId = _userInputOutput.ReadLine();
-        if (!string.IsNullOrEmpty(selectedActionId))
-        {
-            var selectedAction = _actions.Single(a => a.Id == selectedActionId);
-            selectedAction.Execute();    
-        }
+        _userInputOutput.WriteLine("Thank you for playing Conway's Game of Life!");
     }
 }
