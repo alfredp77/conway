@@ -9,8 +9,8 @@ public class InputGridSizeAction : IAction
         _userInputOutput = userInputOutput;
     }
 
-    public string Id { get; }
-    public string Description { get; }
+    public string Id => "1";
+    public string Description => "Specify grid size";
     public GameState Execute(GameState gameState)
     {
         _userInputOutput.WriteLine("Please enter grid size in w h format (example: 10 15):");
