@@ -100,6 +100,4 @@ public class GameControllerTests
         
         _userInputOutput.Received(1).WriteLine("Thank you for playing Conway's Game of Life!");
     }
-
-
 }
