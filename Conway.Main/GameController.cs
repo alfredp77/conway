@@ -19,5 +19,12 @@ public class GameController
             _userInputOutput.WriteLine($"[{action.Id}] {action.Description}");
         }
         _userInputOutput.WriteLine("Please enter your selection");
+        
+        var selectedActionId = _userInputOutput.ReadLine();
+        if (!string.IsNullOrEmpty(selectedActionId))
+        {
+            var selectedAction = _actions.Single(a => a.Id == selectedActionId);
+            selectedAction.Execute();    
+        }
     }
 }

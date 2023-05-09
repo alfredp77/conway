@@ -2,6 +2,7 @@
 
 public interface IAction
 {
-    object Id { get; }
-    object Description { get; }
+    string Id { get; }
+    string Description { get; }
+    void Execute();
 }
