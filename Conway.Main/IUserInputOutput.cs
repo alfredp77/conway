@@ -1,4 +1,4 @@
-﻿namespace conway;
+﻿namespace Conway.Main;
 
 public interface IUserInputOutput
 {

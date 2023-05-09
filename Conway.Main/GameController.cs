@@ -1,4 +1,4 @@
-﻿namespace conway;
+﻿namespace Conway.Main;
 
 public class GameController
 {
@@ -15,7 +15,7 @@ public class GameController
 
     public void Run()
     {
-        var gameState = new GameState();
+        var gameState = GameState.Initial;
         do
         {
             _userInputOutput.WriteLine("Welcome to Conway's Game of Life!");
@@ -30,7 +30,7 @@ public class GameController
             if (!string.IsNullOrEmpty(selectedActionId))
             {
                 var selectedAction = _actions.Single(a => a.Id == selectedActionId);
-                gameState = selectedAction.Execute();
+                gameState = selectedAction.Execute(gameState);
             }
         } while (!_endCondition(gameState));
         

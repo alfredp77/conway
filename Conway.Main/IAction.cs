@@ -1,8 +1,8 @@
-﻿namespace conway;
+﻿namespace Conway.Main;
 
 public interface IAction
 {
     string Id { get; }
     string Description { get; }
-    GameState Execute();
+    GameState Execute(GameState gameState);
 }
