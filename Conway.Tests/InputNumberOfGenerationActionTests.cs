@@ -4,15 +4,15 @@ using Xunit;
 
 namespace Conway.Tests;
 
-public class InputNumberOfGenerationTests
+public class InputNumberOfGenerationActionTests
 {
     private readonly IUserInputOutput _userInputOutput;
-    private InputNumberOfGeneration _action;
+    private readonly InputNumberOfGenerationAction _action;
 
-    public InputNumberOfGenerationTests()
+    public InputNumberOfGenerationActionTests()
     {
         _userInputOutput = Substitute.For<IUserInputOutput>();
-        _action = new InputNumberOfGeneration(_userInputOutput);
+        _action = new InputNumberOfGenerationAction(_userInputOutput);
     }
 
     [Fact]

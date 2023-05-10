@@ -1,10 +1,10 @@
 namespace Conway.Main;
 
-public class InputNumberOfGeneration : IAction
+public class InputNumberOfGenerationAction : IAction
 {
     private readonly IUserInputOutput _userInputOutput;
 
-    public InputNumberOfGeneration(IUserInputOutput userInputOutput)
+    public InputNumberOfGenerationAction(IUserInputOutput userInputOutput)
     {
         _userInputOutput = userInputOutput;
     }
