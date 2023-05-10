@@ -9,8 +9,8 @@ public class InputNumberOfGeneration : IAction
         _userInputOutput = userInputOutput;
     }
 
-    public string Id { get; }
-    public string Description { get; }
+    public string Id => "2";
+    public string Description => "Specify number of generation";
     public GameState Execute(GameState gameState)
     {
         _userInputOutput.WriteLine("Please enter number of generation (10-20):");
