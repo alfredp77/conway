@@ -23,7 +23,7 @@ public class InputGridSizeAction : IAction
                 return gameState with { Width = width, Height = height };
             }
         }
-        catch (Exception e)
+        catch
         {
             // ignored
         }

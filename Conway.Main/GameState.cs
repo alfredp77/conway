@@ -6,4 +6,5 @@ public record GameState
     public bool IsEnd { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
+    public int NumberOfGeneration { get; set; }
 }
