@@ -4,7 +4,7 @@ namespace Conway.Main;
 
 public record GameState
 {
-    public static GameState Initial => new();
+    public static readonly GameState Initial = new();
     public bool IsEnd { get; init; }
     public int Width { get; init; }
     public int Height { get; init; }
