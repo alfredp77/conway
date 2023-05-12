@@ -18,7 +18,7 @@ public class InputLiveCellActionTests
     [Fact]
     public void Should_Prompt_For_Live_Cell()
     {
-        _userInputOutput.ReadLine().Returns(InputLiveCellAction.BackToMenu);
+        _userInputOutput.ReadLine().Returns(Command.Exit.Value);
         
         _action.Execute(GameParameters.Initial);
         
@@ -30,7 +30,7 @@ public class InputLiveCellActionTests
     {
         _userInputOutput.ReadLine()
             .Returns("1 2", "3 10", 
-                InputLiveCellAction.BackToMenu);
+                Command.Exit.Value);
         
         var result = _action.Execute(GameParameters.Initial);
         
@@ -47,9 +47,9 @@ public class InputLiveCellActionTests
     {
         _userInputOutput.ReadLine()
             .Returns("1 2", "3 10", 
-                InputLiveCellAction.ClearAll, 
+                Command.ClearCells.Value, 
                 "5 7", 
-                InputLiveCellAction.BackToMenu);
+                Command.Exit.Value);
         
         var result = _action.Execute(GameParameters.Initial);
         
@@ -64,7 +64,7 @@ public class InputLiveCellActionTests
     {
         _userInputOutput.ReadLine()
             .Returns("1 2", "invalid input", 
-                InputLiveCellAction.BackToMenu);
+                Command.Exit.Value);
         
         var result = _action.Execute(GameParameters.Initial);
         

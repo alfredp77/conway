@@ -13,9 +13,3 @@ public record GameParameters
     
     public List<Point>? CurrentLiveCells { get; set; }
 }
-
-public record GameState
-{
-    public GameParameters Parameters { get; set; }
-    public List<Point> CurrentLiveCells { get; set; }
-}

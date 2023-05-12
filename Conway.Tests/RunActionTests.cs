@@ -20,7 +20,7 @@ public class RunActionTests
     [Fact]
     public void Should_Generate_Initial_Cell_State_And_Prompt()
     {
-        _userInputOutput.ReadLine().Returns("#");
+        _userInputOutput.ReadLine().Returns(Command.Exit.Value);
         
         var action = new RunAction(_userInputOutput, _gameRunner);
         action.Execute(GameParameters.Initial);
@@ -32,7 +32,7 @@ public class RunActionTests
     [Fact]
     public void Should_Generate_Next_State_When_Requested()
     {
-        _userInputOutput.ReadLine().Returns(">","#");
+        _userInputOutput.ReadLine().Returns(Command.Next.Value,Command.Exit.Value);
         var initialState = new GameState { CurrentLiveCells = new List<Point>()};
         _gameRunner.GenerateInitialState(GameParameters.Initial).Returns(initialState);
         var nextState = new GameState { CurrentLiveCells = new List<Point>()};
@@ -49,7 +49,7 @@ public class RunActionTests
     [Fact]
     public void Should_Prompt_Again_When_Invalid_Input_Is_Received()
     {
-        _userInputOutput.ReadLine().Returns("x","#");
+        _userInputOutput.ReadLine().Returns("x",Command.Exit.Value);
         
         var action = new RunAction(_userInputOutput, _gameRunner);
         action.Execute(GameParameters.Initial);

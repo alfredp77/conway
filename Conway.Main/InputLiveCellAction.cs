@@ -4,8 +4,6 @@ namespace Conway.Main;
 
 public class InputLiveCellAction : IAction
 {
-    public const string ClearAll = "*";
-    public const string BackToMenu = "#";
     public const string InputLiveCellPrompt = "Please enter live cell position in x y format (example: 1 2), * to clear all the previously entered cells or # to go back to main menu:";
     private readonly IUserInputOutput _userInputOutput;
 
@@ -20,12 +18,12 @@ public class InputLiveCellAction : IAction
     {
         var liveCells = new List<Point>();
         var input = "";
-        while (input != "#")
+        while (input != Command.Exit)
         {
             _userInputOutput.WriteLine(InputLiveCellPrompt);
             input = _userInputOutput.ReadLine();
 
-            if (input == "*")
+            if (input == Command.ClearCells)
             {
                 liveCells.Clear();
                 continue;

@@ -17,11 +17,11 @@ public class RunAction : IAction
     {
         var userInput = "";
         var gameState = _gameRunner.GenerateInitialState(gameParameters);
-        while (userInput != "#")
+        while (userInput != Command.Exit)
         {
             _userInputOutput.WriteLine("Enter > to go to next generation or # to go back to main menu");
             userInput = _userInputOutput.ReadLine();
-            if (userInput != ">")
+            if (userInput != Command.Next)
             {
                 continue;
             }
