@@ -15,8 +15,15 @@ public class RunAction : IAction
     public string Description => "Run";
     public GameState Execute(GameState gameState)
     {
-        _gameRunner.Run(gameState);
-        _userInputOutput.WriteLine("Enter > to go to next generation or # to go back to main menu");
+        var userInput = "";
+        GameState liveState = gameState;
+        while (userInput != "#")
+        {
+            liveState = _gameRunner.Run(liveState);
+            _userInputOutput.WriteLine("Enter > to go to next generation or # to go back to main menu");
+            userInput = _userInputOutput.ReadLine();
+        }
+        
         return gameState;
     }
 }

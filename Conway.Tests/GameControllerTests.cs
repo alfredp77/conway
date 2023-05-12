@@ -46,14 +46,14 @@ public class GameControllerTests
         
         controller.Run();
 
-        _action2.Received(1).Execute(GameState.Initial);
+        _action2.Received(1).Execute(GameState.NoLiveCells);
     }
     
     [Fact]
     public void Should_Terminate_When_Default_End_Condition_Is_Satisfied()
     {
         _userInputOutput.ReadLine().Returns("2");
-        _action2.Execute(GameState.Initial).Returns(new GameState{ IsEnd = true });
+        _action2.Execute(GameState.NoLiveCells).Returns(new GameState{ IsEnd = true });
 
         _controller.Run();
         
@@ -93,7 +93,7 @@ public class GameControllerTests
     {
         _userInputOutput.ReadLine().Returns("1",  "2");
         var stateFromAction1 = new GameState();
-        _action1.Execute(GameState.Initial).Returns(stateFromAction1);
+        _action1.Execute(GameState.NoLiveCells).Returns(stateFromAction1);
         _action2.Execute(stateFromAction1).Returns(new GameState{ IsEnd = true});
         
         _controller.Run();

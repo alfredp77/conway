@@ -43,7 +43,7 @@ public class InputLiveCellAction : IAction
             
         }
         
-        return gameState with { LiveCells = liveCells };    
+        return gameState with { InitialLiveCells = liveCells };    
     }
 
     private Point? ParsePosition(string input)

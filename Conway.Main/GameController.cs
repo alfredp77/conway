@@ -15,7 +15,7 @@ public class GameController
 
     public void Run()
     {
-        var gameState = GameState.Initial;
+        var gameState = GameState.NoLiveCells;
         do
         {
             _userInputOutput.WriteLine("Welcome to Conway's Game of Life!");

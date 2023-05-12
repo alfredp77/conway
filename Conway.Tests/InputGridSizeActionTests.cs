@@ -18,7 +18,7 @@ public class InputGridSizeActionTests
     [Fact]
     public void Should_Prompt_For_Grid_Size()
     {
-        _action.Execute(GameState.Initial);
+        _action.Execute(GameState.NoLiveCells);
         
         _userInputOutput.Received(1).WriteLine("Please enter grid size in w h format (example: 10 15):");
     }
@@ -28,9 +28,9 @@ public class InputGridSizeActionTests
     {
         _userInputOutput.ReadLine().Returns("invalid input");
         
-        var result = _action.Execute(GameState.Initial);
+        var result = _action.Execute(GameState.NoLiveCells);
         
-        Assert.Equal(GameState.Initial, result);
+        Assert.Equal(GameState.NoLiveCells, result);
         _userInputOutput.Received(1).WriteLine("Invalid input. Please try again.");
     }
 
@@ -41,7 +41,7 @@ public class InputGridSizeActionTests
     {
         _userInputOutput.ReadLine().Returns(input);
         
-        var result = _action.Execute(GameState.Initial);
+        var result = _action.Execute(GameState.NoLiveCells);
         
         Assert.Equal(expectedWidth, result.Width);
         Assert.Equal(expectedHeight, result.Height);

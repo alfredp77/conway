@@ -20,7 +20,7 @@ public class InputLiveCellActionTests
     {
         _userInputOutput.ReadLine().Returns(InputLiveCellAction.BackToMenu);
         
-        _action.Execute(GameState.Initial);
+        _action.Execute(GameState.NoLiveCells);
         
         _userInputOutput.Received(1).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
     }
@@ -32,14 +32,14 @@ public class InputLiveCellActionTests
             .Returns("1 2", "3 10", 
                 InputLiveCellAction.BackToMenu);
         
-        var result = _action.Execute(GameState.Initial);
+        var result = _action.Execute(GameState.NoLiveCells);
         
         _userInputOutput.Received(3).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
-        Assert.Equal(2, result.LiveCells.Count);
-        Assert.Equal(1, result.LiveCells[0].X);
-        Assert.Equal(2, result.LiveCells[0].Y);
-        Assert.Equal(3, result.LiveCells[1].X);
-        Assert.Equal(10, result.LiveCells[1].Y);
+        Assert.Equal(2, result.InitialLiveCells.Count);
+        Assert.Equal(1, result.InitialLiveCells[0].X);
+        Assert.Equal(2, result.InitialLiveCells[0].Y);
+        Assert.Equal(3, result.InitialLiveCells[1].X);
+        Assert.Equal(10, result.InitialLiveCells[1].Y);
     }
     
     [Fact]
@@ -51,12 +51,12 @@ public class InputLiveCellActionTests
                 "5 7", 
                 InputLiveCellAction.BackToMenu);
         
-        var result = _action.Execute(GameState.Initial);
+        var result = _action.Execute(GameState.NoLiveCells);
         
         _userInputOutput.Received(5).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
-        Assert.Single(result.LiveCells);
-        Assert.Equal(5, result.LiveCells[0].X);
-        Assert.Equal(7, result.LiveCells[0].Y);
+        Assert.Single(result.InitialLiveCells);
+        Assert.Equal(5, result.InitialLiveCells[0].X);
+        Assert.Equal(7, result.InitialLiveCells[0].Y);
     }
     
     [Fact]
@@ -66,11 +66,11 @@ public class InputLiveCellActionTests
             .Returns("1 2", "invalid input", 
                 InputLiveCellAction.BackToMenu);
         
-        var result = _action.Execute(GameState.Initial);
+        var result = _action.Execute(GameState.NoLiveCells);
         
         _userInputOutput.Received(3).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
-        Assert.Single(result.LiveCells);
-        Assert.Equal(1, result.LiveCells[0].X);
-        Assert.Equal(2, result.LiveCells[0].Y);
+        Assert.Single(result.InitialLiveCells);
+        Assert.Equal(1, result.InitialLiveCells[0].X);
+        Assert.Equal(2, result.InitialLiveCells[0].Y);
     }
 }
