@@ -23,9 +23,9 @@ public class RunActionTests
         _userInputOutput.ReadLine().Returns("#");
         
         var action = new RunAction(_userInputOutput, _gameRunner);
-        action.Execute(GameState.NoLiveCells);
+        action.Execute(GameParameters.Initial);
         
-        _gameRunner.Received(1).Run(GameState.NoLiveCells);
+        _gameRunner.Received(1).GenerateInitialState(GameParameters.Initial);
         _userInputOutput.Received(1).WriteLine("Enter > to go to next generation or # to go back to main menu");
     }
 
@@ -33,16 +33,16 @@ public class RunActionTests
     public void Should_Generate_Next_State_When_Requested()
     {
         _userInputOutput.ReadLine().Returns(">","#");
-        var initial = new GameState { CurrentLiveCells = new List<Point>()};
-        _gameRunner.Run(GameState.NoLiveCells).Returns(initial);
-        var next = new GameState { CurrentLiveCells = new List<Point>()};
-        _gameRunner.Run(initial).Returns(next);
+        var initialState = new GameState { CurrentLiveCells = new List<Point>()};
+        _gameRunner.GenerateInitialState(GameParameters.Initial).Returns(initialState);
+        var nextState = new GameState { CurrentLiveCells = new List<Point>()};
+        _gameRunner.GenerateNextState(initialState).Returns(nextState);
         
         var action = new RunAction(_userInputOutput, _gameRunner);
-        action.Execute(GameState.NoLiveCells);
+        action.Execute(GameParameters.Initial);
         
-        _gameRunner.Received(1).Run(GameState.NoLiveCells);
-        _gameRunner.Received(1).Run(initial);
+        _gameRunner.Received(1).GenerateInitialState(GameParameters.Initial);
+        _gameRunner.Received(1).GenerateNextState(initialState);
         _userInputOutput.Received(2).WriteLine("Enter > to go to next generation or # to go back to main menu");
     }
 }

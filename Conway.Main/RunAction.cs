@@ -13,17 +13,17 @@ public class RunAction : IAction
 
     public string Id => "4";
     public string Description => "Run";
-    public GameState Execute(GameState gameState)
+    public GameParameters Execute(GameParameters gameParameters)
     {
         var userInput = "";
-        GameState liveState = gameState;
+        var gameState = _gameRunner.GenerateInitialState(gameParameters);
         while (userInput != "#")
         {
-            liveState = _gameRunner.Run(liveState);
             _userInputOutput.WriteLine("Enter > to go to next generation or # to go back to main menu");
             userInput = _userInputOutput.ReadLine();
+            gameState = _gameRunner.GenerateNextState(gameState);
         }
         
-        return gameState;
+        return gameParameters;
     }
 }

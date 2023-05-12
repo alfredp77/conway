@@ -11,14 +11,14 @@ public class InputNumberOfGenerationAction : IAction
 
     public string Id => "2";
     public string Description => "Specify number of generation";
-    public GameState Execute(GameState gameState)
+    public GameParameters Execute(GameParameters gameParameters)
     {
         _userInputOutput.WriteLine("Please enter number of generation (10-20):");
         var input = _userInputOutput.ReadLine();
         try
         {
             var numberOfGeneration = int.Parse(input);
-            return gameState with { NumberOfGeneration = numberOfGeneration };
+            return gameParameters with { NumberOfGeneration = numberOfGeneration };
         }
         catch
         {
@@ -26,6 +26,6 @@ public class InputNumberOfGenerationAction : IAction
         }
         
         _userInputOutput.WriteLine("Invalid input. Please try again.");
-        return gameState;
+        return gameParameters;
     }
 }

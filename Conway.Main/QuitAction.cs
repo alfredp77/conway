@@ -11,9 +11,9 @@ public class QuitAction : IAction
 
     public string Id => "Q";
     public string Description => "Quit";
-    public GameState Execute(GameState gameState)
+    public GameParameters Execute(GameParameters gameParameters)
     {
         _userInputOutput.WriteLine("Thank you for playing Conway's Game of Life!");
-        return new GameState {IsEnd = true};
+        return new GameParameters {IsEnd = true};
     }
 }

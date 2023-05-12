@@ -2,9 +2,9 @@ using System.Drawing;
 
 namespace Conway.Main;
 
-public record GameState
+public record GameParameters
 {
-    public static readonly GameState NoLiveCells = new();
+    public static readonly GameParameters Initial = new();
     public bool IsEnd { get; init; }
     public int Width { get; init; }
     public int Height { get; init; }
@@ -12,4 +12,10 @@ public record GameState
     public List<Point> InitialLiveCells { get; init; } = new();
     
     public List<Point>? CurrentLiveCells { get; set; }
+}
+
+public record GameState
+{
+    public GameParameters Parameters { get; set; }
+    public List<Point> CurrentLiveCells { get; set; }
 }

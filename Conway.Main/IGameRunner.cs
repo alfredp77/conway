@@ -2,5 +2,6 @@ namespace Conway.Main;
 
 public interface IGameRunner
 {
-    GameState Run(GameState current);
+    GameState GenerateInitialState(GameParameters gameParameters);
+    GameState GenerateNextState(GameState current);
 }

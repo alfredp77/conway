@@ -46,14 +46,14 @@ public class GameControllerTests
         
         controller.Run();
 
-        _action2.Received(1).Execute(GameState.NoLiveCells);
+        _action2.Received(1).Execute(GameParameters.Initial);
     }
     
     [Fact]
     public void Should_Terminate_When_Default_End_Condition_Is_Satisfied()
     {
         _userInputOutput.ReadLine().Returns("2");
-        _action2.Execute(GameState.NoLiveCells).Returns(new GameState{ IsEnd = true });
+        _action2.Execute(GameParameters.Initial).Returns(new GameParameters{ IsEnd = true });
 
         _controller.Run();
         
@@ -76,8 +76,8 @@ public class GameControllerTests
     public void Should_Keep_Displaying_Menu_And_Prompt_When_End_Condition_Not_Satisfied()
     {
         _userInputOutput.ReadLine().Returns("1", "1", "2");
-        _action1.Execute(Arg.Any<GameState>()).Returns(new GameState());
-        _action2.Execute(Arg.Any<GameState>()).Returns(new GameState{ IsEnd = true});
+        _action1.Execute(Arg.Any<GameParameters>()).Returns(new GameParameters());
+        _action2.Execute(Arg.Any<GameParameters>()).Returns(new GameParameters{ IsEnd = true});
         
         _controller.Run();
         
@@ -92,9 +92,9 @@ public class GameControllerTests
     public void Should_Pass_GameState_To_The_Next_Action()
     {
         _userInputOutput.ReadLine().Returns("1",  "2");
-        var stateFromAction1 = new GameState();
-        _action1.Execute(GameState.NoLiveCells).Returns(stateFromAction1);
-        _action2.Execute(stateFromAction1).Returns(new GameState{ IsEnd = true});
+        var stateFromAction1 = new GameParameters();
+        _action1.Execute(GameParameters.Initial).Returns(stateFromAction1);
+        _action2.Execute(stateFromAction1).Returns(new GameParameters{ IsEnd = true});
         
         _controller.Run();
         

@@ -20,7 +20,7 @@ public class InputLiveCellActionTests
     {
         _userInputOutput.ReadLine().Returns(InputLiveCellAction.BackToMenu);
         
-        _action.Execute(GameState.NoLiveCells);
+        _action.Execute(GameParameters.Initial);
         
         _userInputOutput.Received(1).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
     }
@@ -32,7 +32,7 @@ public class InputLiveCellActionTests
             .Returns("1 2", "3 10", 
                 InputLiveCellAction.BackToMenu);
         
-        var result = _action.Execute(GameState.NoLiveCells);
+        var result = _action.Execute(GameParameters.Initial);
         
         _userInputOutput.Received(3).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
         Assert.Equal(2, result.InitialLiveCells.Count);
@@ -51,7 +51,7 @@ public class InputLiveCellActionTests
                 "5 7", 
                 InputLiveCellAction.BackToMenu);
         
-        var result = _action.Execute(GameState.NoLiveCells);
+        var result = _action.Execute(GameParameters.Initial);
         
         _userInputOutput.Received(5).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
         Assert.Single(result.InitialLiveCells);
@@ -66,7 +66,7 @@ public class InputLiveCellActionTests
             .Returns("1 2", "invalid input", 
                 InputLiveCellAction.BackToMenu);
         
-        var result = _action.Execute(GameState.NoLiveCells);
+        var result = _action.Execute(GameParameters.Initial);
         
         _userInputOutput.Received(3).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
         Assert.Single(result.InitialLiveCells);

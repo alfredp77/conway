@@ -4,9 +4,9 @@ public class GameController
 {
     private readonly IUserInputOutput _userInputOutput;
     private readonly IAction[] _actions;
-    private readonly Func<GameState, bool> _endCondition;
+    private readonly Func<GameParameters, bool> _endCondition;
 
-    public GameController(IUserInputOutput userInputOutput, IAction[] actions, Func<GameState, bool>? endCondition = null)
+    public GameController(IUserInputOutput userInputOutput, IAction[] actions, Func<GameParameters, bool>? endCondition = null)
     {
         _userInputOutput = userInputOutput;
         _actions = actions;
@@ -15,7 +15,7 @@ public class GameController
 
     public void Run()
     {
-        var gameState = GameState.NoLiveCells;
+        var gameState = GameParameters.Initial;
         do
         {
             _userInputOutput.WriteLine("Welcome to Conway's Game of Life!");

@@ -18,7 +18,7 @@ public class InputNumberOfGenerationActionTests
     [Fact]
     public void Should_Prompt_For_Number_Of_Generation()
     {
-        _action.Execute(GameState.NoLiveCells);
+        _action.Execute(GameParameters.Initial);
         
         _userInputOutput.Received(1).WriteLine("Please enter number of generation (10-20):");
     }
@@ -28,9 +28,9 @@ public class InputNumberOfGenerationActionTests
     {
         _userInputOutput.ReadLine().Returns("invalid input");
         
-        var result = _action.Execute(GameState.NoLiveCells);
+        var result = _action.Execute(GameParameters.Initial);
         
-        Assert.Equal(GameState.NoLiveCells, result);
+        Assert.Equal(GameParameters.Initial, result);
         _userInputOutput.Received(1).WriteLine("Invalid input. Please try again.");
     }
     
@@ -41,7 +41,7 @@ public class InputNumberOfGenerationActionTests
     {
         _userInputOutput.ReadLine().Returns(input);
         
-        var result = _action.Execute(GameState.NoLiveCells);
+        var result = _action.Execute(GameParameters.Initial);
         
         Assert.Equal(expectedNumberOfGeneration, result.NumberOfGeneration);
     }

@@ -11,7 +11,7 @@ public class InputGridSizeAction : IAction
 
     public string Id => "1";
     public string Description => "Specify grid size";
-    public GameState Execute(GameState gameState)
+    public GameParameters Execute(GameParameters gameParameters)
     {
         _userInputOutput.WriteLine("Please enter grid size in w h format (example: 10 15):");
         var input = _userInputOutput.ReadLine();
@@ -20,7 +20,7 @@ public class InputGridSizeAction : IAction
             var tokens = input.Split(' ');
             if (int.TryParse(tokens[0], out var width) && int.TryParse(tokens[1], out var height))
             {
-                return gameState with { Width = width, Height = height };
+                return gameParameters with { Width = width, Height = height };
             }
         }
         catch
@@ -29,6 +29,6 @@ public class InputGridSizeAction : IAction
         }
 
         _userInputOutput.WriteLine("Invalid input. Please try again.");
-        return gameState;
+        return gameParameters;
     }
 }

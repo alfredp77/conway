@@ -16,7 +16,7 @@ public class InputLiveCellAction : IAction
 
     public string Id => "3";
     public string Description => "Specify live cells";
-    public GameState Execute(GameState gameState)
+    public GameParameters Execute(GameParameters gameParameters)
     {
         var liveCells = new List<Point>();
         var input = "";
@@ -43,7 +43,7 @@ public class InputLiveCellAction : IAction
             
         }
         
-        return gameState with { InitialLiveCells = liveCells };    
+        return gameParameters with { InitialLiveCells = liveCells };    
     }
 
     private Point? ParsePosition(string input)
