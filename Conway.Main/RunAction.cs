@@ -21,6 +21,10 @@ public class RunAction : IAction
         {
             _userInputOutput.WriteLine("Enter > to go to next generation or # to go back to main menu");
             userInput = _userInputOutput.ReadLine();
+            if (userInput != ">")
+            {
+                continue;
+            }
             gameState = _gameRunner.GenerateNextState(gameState);
         }
         

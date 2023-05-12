@@ -45,4 +45,17 @@ public class RunActionTests
         _gameRunner.Received(1).GenerateNextState(initialState);
         _userInputOutput.Received(2).WriteLine("Enter > to go to next generation or # to go back to main menu");
     }
+
+    [Fact]
+    public void Should_Prompt_Again_When_Invalid_Input_Is_Received()
+    {
+        _userInputOutput.ReadLine().Returns("x","#");
+        
+        var action = new RunAction(_userInputOutput, _gameRunner);
+        action.Execute(GameParameters.Initial);
+        
+        _gameRunner.Received(1).GenerateInitialState(GameParameters.Initial);
+        _gameRunner.DidNotReceiveWithAnyArgs().GenerateNextState(Arg.Any<GameState>());
+        _userInputOutput.Received(2).WriteLine("Enter > to go to next generation or # to go back to main menu");
+    }
 }
