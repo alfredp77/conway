@@ -21,7 +21,7 @@ public class RunAction : IAction
         var gameState = _gameRunner.GenerateInitialState(gameParameters);
         _liveCellsPrinter.Print("Initial position", gameState);
         var generationCount = 0;
-        while (userInput != Command.Exit)
+        while (userInput != Command.Exit && generationCount < gameParameters.NumberOfGeneration)
         {
             _userInputOutput.WriteLine("Enter > to go to next generation or # to go back to main menu");
             userInput = _userInputOutput.ReadLine();
