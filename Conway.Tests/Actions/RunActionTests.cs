@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Conway.Main;
+using Conway.Main.Actions;
 using NSubstitute;
 using Xunit;
 
-namespace Conway.Tests;
+namespace Conway.Tests.Actions;
 
 public class RunActionTests
 {

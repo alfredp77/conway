@@ -1,4 +1,4 @@
-namespace Conway.Main;
+namespace Conway.Main.Actions;
 
 public class InputGridSizeAction : IAction
 {
