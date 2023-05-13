@@ -10,12 +10,16 @@ namespace Conway.Tests.Actions;
 public class RunActionTests
 {
     private readonly IUserInputOutput _userInputOutput;
+    private readonly ILiveCellsPrinter _printer;
     private readonly IGameRunner _gameRunner;
+    private readonly RunAction _action;
 
     public RunActionTests()
     {
         _userInputOutput = Substitute.For<IUserInputOutput>();
+        _printer = Substitute.For<ILiveCellsPrinter>();
         _gameRunner = Substitute.For<IGameRunner>();
+        _action = new RunAction(_userInputOutput, _gameRunner, _printer);
     }
 
     [Fact]
@@ -23,13 +27,24 @@ public class RunActionTests
     {
         _userInputOutput.ReadLine().Returns(Command.Exit.Value);
         
-        var action = new RunAction(_userInputOutput, _gameRunner);
-        action.Execute(GameParameters.Initial);
+        _action.Execute(GameParameters.Initial);
         
         _gameRunner.Received(1).GenerateInitialState(GameParameters.Initial);
         _userInputOutput.Received(1).WriteLine("Enter > to go to next generation or # to go back to main menu");
     }
 
+    [Fact]
+    public void Should_Print_Initial_State()
+    {
+        _userInputOutput.ReadLine().Returns(Command.Exit.Value);
+        var initialState = new GameState { LiveCells = new List<Point>()};
+        _gameRunner.GenerateInitialState(GameParameters.Initial).Returns(initialState);
+        
+        _action.Execute(GameParameters.Initial);
+        
+        _printer.Received(1).Print("Initial position", initialState);
+    }
+    
     [Fact]
     public void Should_Generate_Next_State_When_Requested()
     {
@@ -39,8 +54,7 @@ public class RunActionTests
         var nextState = new GameState { LiveCells = new List<Point>()};
         _gameRunner.GenerateNextState(initialState).Returns(nextState);
         
-        var action = new RunAction(_userInputOutput, _gameRunner);
-        action.Execute(GameParameters.Initial);
+        _action.Execute(GameParameters.Initial);
         
         _gameRunner.Received(1).GenerateInitialState(GameParameters.Initial);
         _gameRunner.Received(1).GenerateNextState(initialState);
@@ -48,12 +62,29 @@ public class RunActionTests
     }
 
     [Fact]
+    public void Should_Print_Next_State_When_Requested()
+    {
+        _userInputOutput.ReadLine().Returns(Command.Next.Value, Command.Next.Value, Command.Exit.Value);
+        var initialState = new GameState { LiveCells = new List<Point>()};
+        _gameRunner.GenerateInitialState(GameParameters.Initial).Returns(initialState);
+        var state1 = new GameState { LiveCells = new List<Point>()};
+        _gameRunner.GenerateNextState(initialState).Returns(state1);
+        var state2 = new GameState { LiveCells = new List<Point>()};
+        _gameRunner.GenerateNextState(state1).Returns(state2);
+        
+        _action.Execute(GameParameters.Initial);
+        
+        _printer.Received(1).Print("Initial position", initialState);
+        _printer.Received(1).Print("Generation 1", state1);
+        _printer.Received(1).Print("Generation 2", state2);
+    }
+    
+    [Fact]
     public void Should_Prompt_Again_When_Invalid_Input_Is_Received()
     {
         _userInputOutput.ReadLine().Returns("x",Command.Exit.Value);
-        
-        var action = new RunAction(_userInputOutput, _gameRunner);
-        action.Execute(GameParameters.Initial);
+
+        _action.Execute(GameParameters.Initial);
         
         _gameRunner.Received(1).GenerateInitialState(GameParameters.Initial);
         _gameRunner.DidNotReceiveWithAnyArgs().GenerateNextState(Arg.Any<GameState>());

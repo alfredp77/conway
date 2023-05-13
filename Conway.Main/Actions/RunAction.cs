@@ -4,11 +4,13 @@ public class RunAction : IAction
 {
     private readonly IUserInputOutput _userInputOutput;
     private readonly IGameRunner _gameRunner;
+    private readonly ILiveCellsPrinter _liveCellsPrinter;
 
-    public RunAction(IUserInputOutput userInputOutput, IGameRunner gameRunner)
+    public RunAction(IUserInputOutput userInputOutput, IGameRunner gameRunner, ILiveCellsPrinter liveCellsPrinter)
     {
         _userInputOutput = userInputOutput;
         _gameRunner = gameRunner;
+        _liveCellsPrinter = liveCellsPrinter;
     }
 
     public string Id => "4";
@@ -17,6 +19,8 @@ public class RunAction : IAction
     {
         var userInput = "";
         var gameState = _gameRunner.GenerateInitialState(gameParameters);
+        _liveCellsPrinter.Print("Initial position", gameState);
+        var generationCount = 0;
         while (userInput != Command.Exit)
         {
             _userInputOutput.WriteLine("Enter > to go to next generation or # to go back to main menu");
@@ -26,6 +30,8 @@ public class RunAction : IAction
                 continue;
             }
             gameState = _gameRunner.GenerateNextState(gameState);
+            generationCount++;
+            _liveCellsPrinter.Print($"Generation {generationCount}", gameState);
         }
         
         return gameParameters;

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Conway.Main;
 
-public class LiveCellsPrinter
+public class LiveCellsPrinter : ILiveCellsPrinter
 {
     private readonly IUserInputOutput _userInputOutput;
 
