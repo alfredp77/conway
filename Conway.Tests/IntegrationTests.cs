@@ -1,6 +1,5 @@
 using Conway.Main;
 using Conway.Main.Actions;
-using NSubstitute;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -29,19 +28,15 @@ Please enter your selection";
 
         GameScenario.WhenGameStartsWith(_testOutputHelper)
             .ThenScreenDisplays(mainMenu)
-            .WhenUserEnters("1")
-            .ThenScreenDisplays(
-@"Please enter grid size in w h format (example: 10 15):"
-            )
-
+            .WhenUserEnters(InputGridSizeAction.ID)
+            .ThenScreenDisplays("Please enter grid size in w h format (example: 10 15):")
             .WhenUserEnters("5 5")
             .ThenScreenDisplays(mainMenu)
-            .WhenUserEnters("2")
-            .ThenScreenDisplays(
-@"Please enter number of generation (10-20):")
+            .WhenUserEnters(InputNumberOfGenerationAction.ID)
+            .ThenScreenDisplays("Please enter number of generation (10-20):")
             .WhenUserEnters("3")
             .ThenScreenDisplays(mainMenu)
-            .WhenUserEnters("3")
+            .WhenUserEnters(InputLiveCellAction.ID)
             .ThenScreenDisplays(InputLiveCellAction.InputLiveCellPrompt)
             .WhenUserEnters("2 4")
             .ThenScreenDisplays(InputLiveCellAction.InputLiveCellPrompt)
@@ -61,7 +56,7 @@ Please enter your selection";
             .ThenScreenDisplays(InputLiveCellAction.InputLiveCellPrompt)
             .WhenUserEnters(Command.Exit.Value)
             .ThenScreenDisplays(mainMenu)
-            .WhenUserEnters("4")
+            .WhenUserEnters(RunAction.ID)
             .ThenScreenDisplays(
                 @"Initial position
 . . . . .
@@ -99,7 +94,7 @@ Enter > to go to next generation or # to go back to main menu")
 End of generation. Press any key to return to main menu")
             .WhenUserEnters(Command.Exit.Value)
             .ThenScreenDisplays(mainMenu)
-            .WhenUserEnters("Q")
+            .WhenUserEnters(QuitAction.ID)
             .ThenScreenDisplays("Thank you for playing Conway's Game of Life!")
             .Dispose();
     }

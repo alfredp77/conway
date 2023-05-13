@@ -32,7 +32,7 @@ public class GameControllerTests
         var controller = new GameController(_userInputOutput, new[] {_action1, _action2}, _ => true);
         controller.Run();
         
-        _userInputOutput.Received(1).WriteLine("Welcome to Conway's Game of Life!");
+        _userInputOutput.Received(1).WriteLine(GameController.WelcomeMessage);
         _userInputOutput.Received(1).WriteLine("[1] Action 1");
         _userInputOutput.Received(1).WriteLine("[2] Action 2");
         _userInputOutput.Received(1).WriteLine("Please enter your selection");
@@ -57,7 +57,7 @@ public class GameControllerTests
 
         _controller.Run();
         
-        _userInputOutput.Received(1).WriteLine("Thank you for playing Conway's Game of Life!");
+        _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public class GameControllerTests
         controller.Run();
 
         _userInputOutput.Received(1).ReadLine();
-        _userInputOutput.Received(1).WriteLine("Thank you for playing Conway's Game of Life!");
+        _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);
     }
 
     [Fact]
@@ -85,7 +85,7 @@ public class GameControllerTests
         _userInputOutput.Received(3).WriteLine("[1] Action 1");
         _userInputOutput.Received(3).WriteLine("[2] Action 2");
         _userInputOutput.Received(3).WriteLine("Please enter your selection");
-        _userInputOutput.Received(1).WriteLine("Thank you for playing Conway's Game of Life!");
+        _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);
     }
     
     [Fact]
@@ -98,6 +98,19 @@ public class GameControllerTests
         
         _controller.Run();
         
-        _userInputOutput.Received(1).WriteLine("Thank you for playing Conway's Game of Life!");
+        _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);
+    }
+
+    [Fact]
+    public void Command_Should_Be_Case_Insensitive()
+    {
+        _action2.Id.Returns("x");
+        _userInputOutput.ReadLine().Returns("X");
+        _action2.Execute(GameParameters.Initial).Returns(new GameParameters{ IsEnd = true });
+
+        _controller.Run();
+        
+        _action2.Received(1).Execute(GameParameters.Initial);
+        _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);
     }
 }

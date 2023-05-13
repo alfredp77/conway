@@ -2,6 +2,8 @@
 
 public class GameController
 {
+    public const string WelcomeMessage = "Welcome to Conway's Game of Life!";
+    public const string ThankYouMessage = "Thank you for playing Conway's Game of Life!";
     private readonly IUserInputOutput _userInputOutput;
     private readonly IAction[] _actions;
     private readonly Func<GameParameters, bool> _endCondition;
@@ -18,7 +20,7 @@ public class GameController
         var gameState = GameParameters.Initial;
         do
         {
-            _userInputOutput.WriteLine("Welcome to Conway's Game of Life!");
+            _userInputOutput.WriteLine(WelcomeMessage);
             foreach (var action in _actions)
             {
                 _userInputOutput.WriteLine($"[{action.Id}] {action.Description}");
@@ -29,11 +31,11 @@ public class GameController
             var selectedActionId = _userInputOutput.ReadLine();
             if (!string.IsNullOrEmpty(selectedActionId))
             {
-                var selectedAction = _actions.Single(a => a.Id == selectedActionId);
+                var selectedAction = _actions.Single(a => string.Equals(a.Id, selectedActionId, StringComparison.InvariantCultureIgnoreCase));
                 gameState = selectedAction.Execute(gameState);
             }
         } while (!_endCondition(gameState));
         
-        _userInputOutput.WriteLine("Thank you for playing Conway's Game of Life!");
+        _userInputOutput.WriteLine(ThankYouMessage);
     }
 }

@@ -2,6 +2,7 @@ namespace Conway.Main.Actions;
 
 public class RunAction : IAction
 {
+    public const string ID = "4";
     private readonly IUserInputOutput _userInputOutput;
     private readonly IGameRunner _gameRunner;
     private readonly ILiveCellsPrinter _liveCellsPrinter;
@@ -13,7 +14,7 @@ public class RunAction : IAction
         _liveCellsPrinter = liveCellsPrinter;
     }
 
-    public string Id => "4";
+    public string Id => ID;
     public string Description => "Run";
     public GameParameters Execute(GameParameters gameParameters)
     {

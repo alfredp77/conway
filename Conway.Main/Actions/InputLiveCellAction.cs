@@ -5,6 +5,7 @@ namespace Conway.Main.Actions;
 public class InputLiveCellAction : IAction
 {
     public const string InputLiveCellPrompt = "Please enter live cell position in x y format (example: 1 2), * to clear all the previously entered cells or # to go back to main menu:";
+    public const string ID = "3";
     private readonly IUserInputOutput _userInputOutput;
 
     public InputLiveCellAction(IUserInputOutput userInputOutput)
@@ -12,7 +13,7 @@ public class InputLiveCellAction : IAction
         _userInputOutput = userInputOutput;
     }
 
-    public string Id => "3";
+    public string Id => ID;
     public string Description => "Specify initial live cells";
     public GameParameters Execute(GameParameters gameParameters)
     {

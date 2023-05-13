@@ -2,6 +2,7 @@ namespace Conway.Main.Actions;
 
 public class InputNumberOfGenerationAction : IAction
 {
+    public const string ID = "2";
     private readonly IUserInputOutput _userInputOutput;
 
     public InputNumberOfGenerationAction(IUserInputOutput userInputOutput)
@@ -9,7 +10,7 @@ public class InputNumberOfGenerationAction : IAction
         _userInputOutput = userInputOutput;
     }
 
-    public string Id => "2";
+    public string Id => ID;
     public string Description => "Specify number of generation";
     public GameParameters Execute(GameParameters gameParameters)
     {

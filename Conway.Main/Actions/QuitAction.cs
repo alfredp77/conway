@@ -2,7 +2,9 @@ namespace Conway.Main.Actions;
 
 public class QuitAction : IAction
 {
-    public string Id => "Q";
+    public const string ID = "Q";
+
+    public string Id => ID;
     public string Description => "Quit";
     public GameParameters Execute(GameParameters gameParameters)
     {

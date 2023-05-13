@@ -2,6 +2,7 @@ namespace Conway.Main.Actions;
 
 public class InputGridSizeAction : IAction
 {
+    public const string ID = "1";
     private readonly IUserInputOutput _userInputOutput;
 
     public InputGridSizeAction(IUserInputOutput userInputOutput)
@@ -9,7 +10,7 @@ public class InputGridSizeAction : IAction
         _userInputOutput = userInputOutput;
     }
 
-    public string Id => "1";
+    public string Id => ID;
     public string Description => "Specify grid size";
     public GameParameters Execute(GameParameters gameParameters)
     {
