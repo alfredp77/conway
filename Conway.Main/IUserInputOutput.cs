@@ -2,6 +2,6 @@
 
 public interface IUserInputOutput
 {
-    void WriteLine(string textToDisplay);
+    void WriteLine(string textToDisplay="");
     string ReadLine();
 }
