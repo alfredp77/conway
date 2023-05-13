@@ -34,9 +34,9 @@ public class RunActionTests
     public void Should_Generate_Next_State_When_Requested()
     {
         _userInputOutput.ReadLine().Returns(Command.Next.Value,Command.Exit.Value);
-        var initialState = new GameState { CurrentLiveCells = new List<Point>()};
+        var initialState = new GameState { LiveCells = new List<Point>()};
         _gameRunner.GenerateInitialState(GameParameters.Initial).Returns(initialState);
-        var nextState = new GameState { CurrentLiveCells = new List<Point>()};
+        var nextState = new GameState { LiveCells = new List<Point>()};
         _gameRunner.GenerateNextState(initialState).Returns(nextState);
         
         var action = new RunAction(_userInputOutput, _gameRunner);
