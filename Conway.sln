@@ -4,6 +4,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conway.Main", "Conway.Main\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conway.Tests", "Conway.Tests\Conway.Tests.csproj", "{36340C19-518A-42BA-B850-72800224E568}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Information", "Information", "{32AC86E0-1226-4344-84D8-03F58AD38051}"
+	ProjectSection(SolutionItems) = preProject
+		Conway's Game of Life.md = Conway's Game of Life.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
