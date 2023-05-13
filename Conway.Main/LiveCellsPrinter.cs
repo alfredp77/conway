@@ -30,6 +30,6 @@ public class LiveCellsPrinter : ILiveCellsPrinter
 
             builder.AppendLine();
         }
-        _userInputOutput.WriteLine(builder.ToString());
+        _userInputOutput.WriteLine(builder.ToString().Trim());
     }
 }

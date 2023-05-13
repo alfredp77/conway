@@ -111,7 +111,21 @@ public class RunActionTests
         _printer.Received(1).Print("Initial position", initialState);
         _printer.Received(1).Print("Generation 1", state1);
         _printer.Received(1).Print("Generation 2", state2);
+        _userInputOutput.Received(1).WriteLine("End of generation. Press any key to return to main menu");
         _printer.DidNotReceive().Print("Generation 3", Arg.Any<GameState>());
-        _userInputOutput.Received(2).ReadLine();
+        _userInputOutput.Received(3).ReadLine();
+    }
+
+    [Fact]
+    public void Should_Not_Print_EndOfGeneration_Message_When_Exit_Before_The_End()
+    {
+        _userInputOutput.ReadLine().Returns(Command.Next.Value, Command.Exit.Value);
+        var parameters = GameParameters.Initial with {NumberOfGeneration = 2};
+        var initialState = new GameState { LiveCells = new List<Point>()};
+        _gameRunner.GenerateInitialState(parameters).Returns(initialState);
+        
+        _action.Execute(parameters);
+        
+        _userInputOutput.DidNotReceive().WriteLine("End of generation. Press any key to return to main menu");
     }
 }

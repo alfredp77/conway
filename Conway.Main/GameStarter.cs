@@ -13,7 +13,7 @@ public static class GameStarter
                 new InputNumberOfGenerationAction(userInputOutput),
                 new InputLiveCellAction(userInputOutput),
                 new RunAction(userInputOutput, new GameRunner(), new LiveCellsPrinter((userInputOutput))),
-                new QuitAction(userInputOutput)
+                new QuitAction()
             });
         controller.Run();
     }    

@@ -13,32 +13,32 @@ public class InputLiveCellAction : IAction
     }
 
     public string Id => "3";
-    public string Description => "Specify live cells";
+    public string Description => "Specify initial live cells";
     public GameParameters Execute(GameParameters gameParameters)
     {
         var liveCells = new List<Point>();
         var input = "";
         while (input != Command.Exit)
         {
-            _userInputOutput.WriteLine(InputLiveCellPrompt);
-            input = _userInputOutput.ReadLine();
-
             if (input == Command.ClearCells)
             {
                 liveCells.Clear();
-                continue;
+            }
+            else if (input != "")
+            {
+                var position = ParsePosition(input);
+                if (position != null)
+                {
+                    liveCells.Add(position.Value);
+                }
+                else
+                {
+                    _userInputOutput.WriteLine("Invalid input. Please try again.");
+                }
             }
             
-            var position = ParsePosition(input);
-            if (position != null)
-            {
-                liveCells.Add(position.Value);
-            }
-            else
-            {
-                _userInputOutput.WriteLine("Invalid input. Please try again.");
-            }
-            
+            _userInputOutput.WriteLine(InputLiveCellPrompt);
+            input = _userInputOutput.ReadLine();
         }
         
         return gameParameters with { InitialLiveCells = liveCells };    

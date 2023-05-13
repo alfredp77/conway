@@ -33,15 +33,13 @@ public class LiveCellsPrinterTests
         printer.Print("Initial position", gameState);
 
         var expected = 
-@"
-Initial position
+@"Initial position
 . . . . .
 . . . . .
 . . o o o
 . . o o o
 . o . . o
-. . . . .
-";
+. . . . .";
         userInputOutput.Received(1).WriteLine(expected);
     }
 }

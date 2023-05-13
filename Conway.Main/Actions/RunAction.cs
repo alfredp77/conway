@@ -33,7 +33,12 @@ public class RunAction : IAction
             generationCount++;
             _liveCellsPrinter.Print($"Generation {generationCount}", gameState);
         }
-        
+
+        if (generationCount >= gameParameters.NumberOfGeneration)
+        {
+            _userInputOutput.WriteLine("End of generation. Press any key to return to main menu");
+            _userInputOutput.ReadLine();
+        }
         return gameParameters;
     }
 }
