@@ -27,7 +27,7 @@ public class InputNumberOfGenerationAction : IAction
             // ignored
         }
         
-        _userInputOutput.WriteLine("Invalid input. Please try again.");
+        _userInputOutput.WriteLine(CommonMessages.InvalidInputMessage);
         return gameParameters;
     }
 }

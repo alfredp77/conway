@@ -34,7 +34,7 @@ public class InputLiveCellAction : IAction
                 }
                 else
                 {
-                    _userInputOutput.WriteLine("Invalid input. Please try again.");
+                    _userInputOutput.WriteLine(CommonMessages.InvalidInputMessage);
                 }
             }
             

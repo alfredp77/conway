@@ -70,7 +70,7 @@ public class InputLiveCellActionTests
         var result = _action.Execute(GameParameters.Initial);
         
         _userInputOutput.Received(3).WriteLine(InputLiveCellAction.InputLiveCellPrompt);
-        _userInputOutput.Received(1).WriteLine("Invalid input. Please try again.");
+        _userInputOutput.Received(1).WriteLine(CommonMessages.InvalidInputMessage);
         Assert.Single(result.InitialLiveCells);
         Assert.Equal(1, result.InitialLiveCells[0].X);
         Assert.Equal(2, result.InitialLiveCells[0].Y);

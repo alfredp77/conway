@@ -32,7 +32,7 @@ public class InputGridSizeActionTests
         var result = _action.Execute(GameParameters.Initial);
         
         Assert.Equal(GameParameters.Initial, result);
-        _userInputOutput.Received(1).WriteLine("Invalid input. Please try again.");
+        _userInputOutput.Received(1).WriteLine(CommonMessages.InvalidInputMessage);
     }
 
     [Theory]
