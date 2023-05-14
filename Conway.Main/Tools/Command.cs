@@ -1,4 +1,4 @@
-namespace Conway.Main;
+namespace Conway.Main.Tools;
 
 public record Command
 {

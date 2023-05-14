@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace Conway.Main;
+namespace Conway.Main.Game;
 
 public record GameParameters
 {

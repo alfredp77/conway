@@ -1,10 +1,4 @@
-﻿namespace Conway.Main;
-
-public interface IUserInputOutput
-{
-    void WriteLine(string textToDisplay="");
-    string ReadLine();
-}
+namespace Conway.Main.Tools;
 
 public class ConsoleUserInputOutput : IUserInputOutput
 {

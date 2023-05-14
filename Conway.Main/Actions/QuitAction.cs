@@ -1,3 +1,5 @@
+using Conway.Main.Game;
+
 namespace Conway.Main.Actions;
 
 public class QuitAction : IAction

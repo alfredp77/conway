@@ -1,4 +1,6 @@
 using System.Drawing;
+using Conway.Main.Game;
+using Conway.Main.Tools;
 
 namespace Conway.Main.Actions;
 

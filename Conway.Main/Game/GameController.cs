@@ -1,4 +1,6 @@
-﻿namespace Conway.Main;
+﻿using Conway.Main.Tools;
+
+namespace Conway.Main.Game;
 
 public class GameController
 {

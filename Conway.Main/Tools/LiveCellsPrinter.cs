@@ -1,7 +1,8 @@
 using System.Drawing;
 using System.Text;
+using Conway.Main.Game;
 
-namespace Conway.Main;
+namespace Conway.Main.Tools;
 
 public class LiveCellsPrinter : ILiveCellsPrinter
 {

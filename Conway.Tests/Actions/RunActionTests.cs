@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using Conway.Main;
 using Conway.Main.Actions;
+using Conway.Main.Game;
+using Conway.Main.Tools;
 using NSubstitute;
 using Xunit;
 

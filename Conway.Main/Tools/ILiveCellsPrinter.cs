@@ -1,4 +1,6 @@
-namespace Conway.Main;
+using Conway.Main.Game;
+
+namespace Conway.Main.Tools;
 
 public interface ILiveCellsPrinter
 {

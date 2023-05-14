@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Conway.Main;
+using Conway.Main.Tools;
 
-namespace Conway.Tests;
+namespace Conway.Tests.Tools;
 
 public class TestUserInputOutput : IUserInputOutput, IDisposable
 {

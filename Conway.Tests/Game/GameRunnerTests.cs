@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Drawing;
-using Conway.Main;
+using Conway.Main.Game;
 using Xunit;
 
-namespace Conway.Tests;
+namespace Conway.Tests.Game;
 
 public class GameRunnerTests
 {

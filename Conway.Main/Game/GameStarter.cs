@@ -1,6 +1,7 @@
 using Conway.Main.Actions;
+using Conway.Main.Tools;
 
-namespace Conway.Main;
+namespace Conway.Main.Game;
 
 public static class GameStarter
 {

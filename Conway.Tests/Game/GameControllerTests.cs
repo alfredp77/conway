@@ -1,8 +1,9 @@
-using Conway.Main;
+using Conway.Main.Game;
+using Conway.Main.Tools;
 using NSubstitute;
 using Xunit;
 
-namespace Conway.Tests;
+namespace Conway.Tests.Game;
 
 public class GameControllerTests
 {
