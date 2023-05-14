@@ -17,10 +17,10 @@ public class GameController
 
     public void Run()
     {
+        _userInputOutput.WriteLine(WelcomeMessage);
         var gameState = GameParameters.Initial;
         do
         {
-            _userInputOutput.WriteLine(WelcomeMessage);
             foreach (var action in _actions)
             {
                 _userInputOutput.WriteLine($"[{action.Id}] {action.Description}");

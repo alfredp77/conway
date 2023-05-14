@@ -21,7 +21,7 @@ public class InputGridSizeActionTests
     {
         _action.Execute(GameParameters.Initial);
         
-        _userInputOutput.Received(1).WriteLine("Please enter grid size in w h format (example: 10 15):");
+        _userInputOutput.Received(1).WriteLine(InputGridSizeAction.Prompt);
     }
     
     [Fact]

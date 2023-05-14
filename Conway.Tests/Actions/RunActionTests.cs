@@ -31,7 +31,7 @@ public class RunActionTests
         _action.Execute(parameters);
         
         _gameRunner.Received(1).GenerateInitialState(parameters);
-        _userInputOutput.Received(1).WriteLine("Enter > to go to next generation or # to go back to main menu");
+        _userInputOutput.Received(1).WriteLine(RunAction.NextGenerationPrompt);
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class RunActionTests
         
         _gameRunner.Received(1).GenerateInitialState(parameters);
         _gameRunner.Received(1).GenerateNextState(initialState);
-        _userInputOutput.Received(2).WriteLine("Enter > to go to next generation or # to go back to main menu");
+        _userInputOutput.Received(2).WriteLine(RunAction.NextGenerationPrompt);
     }
 
     [Fact]
@@ -91,7 +91,7 @@ public class RunActionTests
         
         _gameRunner.Received(1).GenerateInitialState(parameters);
         _gameRunner.DidNotReceiveWithAnyArgs().GenerateNextState(Arg.Any<GameState>());
-        _userInputOutput.Received(2).WriteLine("Enter > to go to next generation or # to go back to main menu");
+        _userInputOutput.Received(2).WriteLine(RunAction.NextGenerationPrompt);
     }
 
     [Fact]
@@ -111,7 +111,7 @@ public class RunActionTests
         _printer.Received(1).Print("Initial position", initialState);
         _printer.Received(1).Print("Generation 1", state1);
         _printer.Received(1).Print("Generation 2", state2);
-        _userInputOutput.Received(1).WriteLine("End of generation. Press any key to return to main menu");
+        _userInputOutput.Received(1).WriteLine(RunAction.EndOfGenerationPrompt);
         _printer.DidNotReceive().Print("Generation 3", Arg.Any<GameState>());
         _userInputOutput.Received(3).ReadLine();
     }
@@ -126,6 +126,6 @@ public class RunActionTests
         
         _action.Execute(parameters);
         
-        _userInputOutput.DidNotReceive().WriteLine("End of generation. Press any key to return to main menu");
+        _userInputOutput.DidNotReceive().WriteLine(RunAction.EndOfGenerationPrompt);
     }
 }

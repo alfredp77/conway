@@ -81,7 +81,7 @@ public class GameControllerTests
         
         _controller.Run();
         
-        _userInputOutput.Received(3).WriteLine("Welcome to Conway's Game of Life!");
+        _userInputOutput.Received(1).WriteLine(GameController.WelcomeMessage);
         _userInputOutput.Received(3).WriteLine("[1] Action 1");
         _userInputOutput.Received(3).WriteLine("[2] Action 2");
         _userInputOutput.Received(3).WriteLine("Please enter your selection");

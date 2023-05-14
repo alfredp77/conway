@@ -18,8 +18,7 @@ public class IntegrationTests
     public void Should_Run_Sample_Scenario_Successfully()
     {
         const string mainMenu =
-            @"Welcome to Conway's Game of Life!
-[1] Specify grid size
+            @"[1] Specify grid size
 [2] Specify number of generation
 [3] Specify initial live cells
 [4] Run
@@ -27,13 +26,15 @@ public class IntegrationTests
 Please enter your selection";
 
         GameScenario.WhenGameStartsWith(_testOutputHelper)
-            .ThenScreenDisplays(mainMenu)
+            .ThenScreenDisplays(
+                $@"{GameController.WelcomeMessage}
+{mainMenu}")
             .WhenUserEnters(InputGridSizeAction.ID)
-            .ThenScreenDisplays("Please enter grid size in w h format (example: 10 15):")
+            .ThenScreenDisplays(InputGridSizeAction.Prompt)
             .WhenUserEnters("5 5")
             .ThenScreenDisplays(mainMenu)
             .WhenUserEnters(InputNumberOfGenerationAction.ID)
-            .ThenScreenDisplays("Please enter number of generation (10-20):")
+            .ThenScreenDisplays(InputNumberOfGenerationAction.Prompt)
             .WhenUserEnters("3")
             .ThenScreenDisplays(mainMenu)
             .WhenUserEnters(InputLiveCellAction.ID)
@@ -58,40 +59,40 @@ Please enter your selection";
             .ThenScreenDisplays(mainMenu)
             .WhenUserEnters(RunAction.ID)
             .ThenScreenDisplays(
-                @"Initial position
+                $@"Initial position
 . . . . .
 . . o o o
 . . o o o
 . o . . o
 . . . . .
-Enter > to go to next generation or # to go back to main menu")
+{RunAction.NextGenerationPrompt}")
             .WhenUserEnters(">")
             .ThenScreenDisplays(
-                @"Generation 1
+                $@"Generation 1
 . . . o .
 . . o . o
 . o . . .
 . . o . o
 . . . . .
-Enter > to go to next generation or # to go back to main menu")
+{RunAction.NextGenerationPrompt}")
             .WhenUserEnters(">")
             .ThenScreenDisplays(
-                @"Generation 2
+                $@"Generation 2
 . . . o .
 . . o o .
 . o o . .
 . . . . .
 . . . . .
-Enter > to go to next generation or # to go back to main menu")
+{RunAction.NextGenerationPrompt}")
             .WhenUserEnters(">")
             .ThenScreenDisplays(
-                @"Generation 3
+                $@"Generation 3
 . . o o .
 . o . o .
 . o o o .
 . . . . .
 . . . . .
-End of generation. Press any key to return to main menu")
+{RunAction.EndOfGenerationPrompt}")
             .WhenUserEnters(Command.Exit.Value)
             .ThenScreenDisplays(mainMenu)
             .WhenUserEnters(QuitAction.ID)

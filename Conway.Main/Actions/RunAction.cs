@@ -3,6 +3,9 @@ namespace Conway.Main.Actions;
 public class RunAction : IAction
 {
     public const string ID = "4";
+    public const string NextGenerationPrompt = "Enter > to go to next generation or # to go back to main menu";
+    public const string EndOfGenerationPrompt = "End of generation. Press any key to return to main menu";
+    
     private readonly IUserInputOutput _userInputOutput;
     private readonly IGameRunner _gameRunner;
     private readonly ILiveCellsPrinter _liveCellsPrinter;
@@ -24,7 +27,7 @@ public class RunAction : IAction
         var generationCount = 0;
         while (userInput != Command.Exit && generationCount < gameParameters.NumberOfGeneration)
         {
-            _userInputOutput.WriteLine("Enter > to go to next generation or # to go back to main menu");
+            _userInputOutput.WriteLine(NextGenerationPrompt);
             userInput = _userInputOutput.ReadLine();
             if (userInput != Command.Next)
             {
@@ -37,7 +40,7 @@ public class RunAction : IAction
 
         if (generationCount >= gameParameters.NumberOfGeneration)
         {
-            _userInputOutput.WriteLine("End of generation. Press any key to return to main menu");
+            _userInputOutput.WriteLine(EndOfGenerationPrompt);
             _userInputOutput.ReadLine();
         }
         return gameParameters;

@@ -3,6 +3,7 @@ namespace Conway.Main.Actions;
 public class InputGridSizeAction : IAction
 {
     public const string ID = "1";
+    public const string Prompt = "Please enter grid size in w h format (example: 10 15):";
     private readonly IUserInputOutput _userInputOutput;
 
     public InputGridSizeAction(IUserInputOutput userInputOutput)
@@ -14,7 +15,7 @@ public class InputGridSizeAction : IAction
     public string Description => "Specify grid size";
     public GameParameters Execute(GameParameters gameParameters)
     {
-        _userInputOutput.WriteLine("Please enter grid size in w h format (example: 10 15):");
+        _userInputOutput.WriteLine(Prompt);
         var input = _userInputOutput.ReadLine();
         try
         {
