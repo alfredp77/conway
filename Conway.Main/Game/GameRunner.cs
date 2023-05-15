@@ -28,7 +28,7 @@ public class GameRunner : IGameRunner
             }
         }
         
-        return current with { LiveCells = nextLiveCells };
+        return current with { LiveCells = nextLiveCells, NumberOfGenerations = current.NumberOfGenerations+1};
     }
 
     private IReadOnlyList<Point> GetNeighbours(Point cell, ICollection<Point> currentLiveCells)

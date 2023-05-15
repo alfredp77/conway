@@ -13,7 +13,7 @@ public class GameRunnerTests
         NumberOfGeneration = 10,
         Width = 10,
         Height = 10,
-        InitialLiveCells = new List<Point> {new(1, 1), new(2, 2)}
+        InitialLiveCells = new List<Point> {new(1, 1), new(2, 2), new (1, 2)}
     };
     
     [Fact]
@@ -22,7 +22,19 @@ public class GameRunnerTests
         var state = _runner.GenerateInitialState(_testParameters);
 
         Assert.Equal(_testParameters, state.Parameters);
-        Assert.Equal(new List<Point> {new (1, 1), new (2, 2)}, state.LiveCells);
+        Assert.Equal(_testParameters.InitialLiveCells, state.LiveCells);
+        Assert.Equal(0, state.NumberOfGenerations);
+    }
+
+    [Fact]
+    public void Should_Increment_Number_Of_Generations()
+    {
+        var state = _runner.GenerateInitialState(_testParameters);
+        var nextState = _runner.GenerateNextState(state);
+        var lastState = _runner.GenerateNextState(nextState);
+        
+        Assert.Equal(1, nextState.NumberOfGenerations);
+        Assert.Equal(2, lastState.NumberOfGenerations);
     }
     
     [Fact]

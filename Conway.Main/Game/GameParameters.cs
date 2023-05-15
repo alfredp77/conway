@@ -10,6 +10,4 @@ public record GameParameters
     public int Height { get; init; }
     public int NumberOfGeneration { get; init; }
     public List<Point> InitialLiveCells { get; init; } = new();
-    
-    public List<Point>? CurrentLiveCells { get; set; }
 }
