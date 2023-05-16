@@ -29,6 +29,7 @@ public class RunActionTests
     {
         _userInputOutput.ReadLine().Returns(Command.Exit.Value);
         var parameters = GameParameters.Initial with {NumberOfGeneration = 2};
+        _gameRunner.GenerateInitialState(parameters).Returns(new GameState());
         
         _action.Execute(parameters);
         
@@ -72,9 +73,9 @@ public class RunActionTests
         var initialState = new GameState { LiveCells = new List<Point>()};
         var parameters = GameParameters.Initial with {NumberOfGeneration = 3};
         _gameRunner.GenerateInitialState(parameters).Returns(initialState);
-        var state1 = new GameState { LiveCells = new List<Point>()};
+        var state1 = new GameState { LiveCells = new List<Point>(), NumberOfGenerations = 1};
         _gameRunner.GenerateNextState(initialState).Returns(state1);
-        var state2 = new GameState { LiveCells = new List<Point>()};
+        var state2 = new GameState { LiveCells = new List<Point>(), NumberOfGenerations = 2};
         _gameRunner.GenerateNextState(state1).Returns(state2);
         
         _action.Execute(parameters);
@@ -89,6 +90,8 @@ public class RunActionTests
     {
         _userInputOutput.ReadLine().Returns("x",Command.Exit.Value);
         var parameters = GameParameters.Initial with {NumberOfGeneration = 2};
+        _gameRunner.GenerateInitialState(parameters).Returns(new GameState());
+        
         _action.Execute(parameters);
         
         _gameRunner.Received(1).GenerateInitialState(parameters);
@@ -97,27 +100,24 @@ public class RunActionTests
     }
 
     [Fact]
-    public void Should_Stop_When_Number_Of_Generation_Is_Reached()
+    public void Should_Stop_When_State_Reaches_The_Max_Number_Of_Generation()
     {
         _userInputOutput.ReadLine().Returns(Command.Next.Value, Command.Next.Value, Command.Next.Value, Command.Exit.Value);
         var parameters = GameParameters.Initial with {NumberOfGeneration = 2};
         var initialState = new GameState { LiveCells = new List<Point>()};
         _gameRunner.GenerateInitialState(parameters).Returns(initialState);
-        var state1 = new GameState { LiveCells = new List<Point>()};
+        var state1 = new GameState { LiveCells = new List<Point>(), NumberOfGenerations = 2};
         _gameRunner.GenerateNextState(initialState).Returns(state1);
-        var state2 = new GameState { LiveCells = new List<Point>()};
-        _gameRunner.GenerateNextState(state1).Returns(state2);
 
         _action.Execute(parameters);
         
         _printer.Received(1).Print("Initial position", initialState);
-        _printer.Received(1).Print("Generation 1", state1);
-        _printer.Received(1).Print("Generation 2", state2);
+        _printer.Received(1).Print("Generation 2", state1);
         _userInputOutput.Received(1).WriteLine(RunAction.EndOfGenerationPrompt);
-        _printer.DidNotReceive().Print("Generation 3", Arg.Any<GameState>());
-        _userInputOutput.Received(3).ReadLine();
+        _userInputOutput.Received(2).ReadLine();
     }
-
+    
+    
     [Fact]
     public void Should_Not_Print_EndOfGeneration_Message_When_Exit_Before_The_End()
     {
@@ -125,6 +125,8 @@ public class RunActionTests
         var parameters = GameParameters.Initial with {NumberOfGeneration = 2};
         var initialState = new GameState { LiveCells = new List<Point>()};
         _gameRunner.GenerateInitialState(parameters).Returns(initialState);
+        var nextState = new GameState {LiveCells = new List<Point>(), NumberOfGenerations = 1};
+        _gameRunner.GenerateNextState(initialState).Returns(nextState);
         
         _action.Execute(parameters);
         

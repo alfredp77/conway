@@ -27,8 +27,7 @@ public class RunAction : IAction
         var userInput = "";
         var gameState = _gameRunner.GenerateInitialState(gameParameters);
         _liveCellsPrinter.Print("Initial position", gameState);
-        var generationCount = 0;
-        while (userInput != Command.Exit && generationCount < gameParameters.NumberOfGeneration)
+        while (userInput != Command.Exit && gameState.NumberOfGenerations < gameParameters.NumberOfGeneration)
         {
             _userInputOutput.WriteLine(NextGenerationPrompt);
             userInput = _userInputOutput.ReadLine();
@@ -37,11 +36,10 @@ public class RunAction : IAction
                 continue;
             }
             gameState = _gameRunner.GenerateNextState(gameState);
-            generationCount++;
-            _liveCellsPrinter.Print($"Generation {generationCount}", gameState);
+            _liveCellsPrinter.Print($"Generation {gameState.NumberOfGenerations}", gameState);
         }
 
-        if (generationCount >= gameParameters.NumberOfGeneration)
+        if (gameState.NumberOfGenerations >= gameParameters.NumberOfGeneration)
         {
             _userInputOutput.WriteLine(EndOfGenerationPrompt);
             _userInputOutput.ReadLine();
