@@ -123,6 +123,16 @@ $@"{CommonMessages.InvalidInputMessage}
 $@"{CommonMessages.InvalidInputMessage}
 {InputGridSizeAction.Prompt}"
             )
+            .WhenUserEnters("0 9")
+            .ThenScreenDisplays(
+                $@"{CommonMessages.InvalidInputMessage}
+{InputGridSizeAction.Prompt}"
+            )
+            .WhenUserEnters("7 0")
+            .ThenScreenDisplays(
+                $@"{CommonMessages.InvalidInputMessage}
+{InputGridSizeAction.Prompt}"
+            )
             .WhenUserEnters("7 5")
             .ThenScreenDisplays(MainMenu)
             .Dispose();
