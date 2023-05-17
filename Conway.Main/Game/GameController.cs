@@ -17,10 +17,10 @@ public class GameController
         _endCondition = endCondition ?? (gs => gs.IsEnd);
     }
 
-    public void Run()
+    public void Run(GameParameters initialParameters)
     {
         _userInputOutput.WriteLine(WelcomeMessage);
-        var gameState = GameParameters.Initial;
+        var gameParameters = initialParameters;
         do
         {
             foreach (var action in _actions)
@@ -34,9 +34,9 @@ public class GameController
             if (!string.IsNullOrEmpty(selectedActionId))
             {
                 var selectedAction = _actions.Single(a => string.Equals(a.Id, selectedActionId, StringComparison.InvariantCultureIgnoreCase));
-                gameState = selectedAction.Execute(gameState);
+                gameParameters = selectedAction.Execute(gameParameters);
             }
-        } while (!_endCondition(gameState));
+        } while (!_endCondition(gameParameters));
         
         _userInputOutput.WriteLine(ThankYouMessage);
     }

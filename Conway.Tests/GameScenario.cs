@@ -17,17 +17,17 @@ public class GameScenario : IDisposable
     private readonly Task _gameTask;
     private readonly CancellationTokenSource _cancellationTokenSource;
     private readonly StringBuilder _allLines = new();
-    public static GameScenario WhenGameStartsWith(ITestOutputHelper testOutputHelper)
+    public static GameScenario WhenGameStartsWith(ITestOutputHelper testOutputHelper, GameParameters? initialParameters=null)
     {
-        return new GameScenario(testOutputHelper);
+        return new GameScenario(testOutputHelper, initialParameters);
     }
 
-    private GameScenario(ITestOutputHelper testOutputHelper)
+    private GameScenario(ITestOutputHelper testOutputHelper, GameParameters? initialParameters)
     {
         _testOutputHelper = testOutputHelper;
         _cancellationTokenSource = new CancellationTokenSource();
         _userInputOutputMock = new TestUserInputOutput(_cancellationTokenSource.Token);
-        _gameTask = Task.Run(() => GameStarter.Run(_userInputOutputMock), _cancellationTokenSource.Token);
+        _gameTask = Task.Run(() => GameStarter.Run(_userInputOutputMock, initialParameters), _cancellationTokenSource.Token);
     }
     
     public GameScenario ThenScreenDisplays(string expected)

@@ -31,7 +31,7 @@ public class GameControllerTests
     public void Should_Take_List_Of_Actions_And_Display_Them()
     {
         var controller = new GameController(_userInputOutput, new[] {_action1, _action2}, _ => true);
-        controller.Run();
+        controller.Run(GameParameters.Initial);
         
         _userInputOutput.Received(1).WriteLine(GameController.WelcomeMessage);
         _userInputOutput.Received(1).WriteLine("[1] Action 1");
@@ -45,7 +45,7 @@ public class GameControllerTests
         var controller = new GameController(_userInputOutput, new[] {_action1, _action2}, _ => true);
         _userInputOutput.ReadLine().Returns("2");
         
-        controller.Run();
+        controller.Run(GameParameters.Initial);
 
         _action2.Received(1).Execute(GameParameters.Initial);
     }
@@ -56,7 +56,7 @@ public class GameControllerTests
         _userInputOutput.ReadLine().Returns("2");
         _action2.Execute(GameParameters.Initial).Returns(new GameParameters{ IsEnd = true });
 
-        _controller.Run();
+        _controller.Run(GameParameters.Initial);
         
         _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);
     }
@@ -67,7 +67,7 @@ public class GameControllerTests
         var controller = new GameController(_userInputOutput, new[] {_action1, _action2}, _ => true);
         _userInputOutput.ReadLine().Returns("1");
         
-        controller.Run();
+        controller.Run(GameParameters.Initial);
 
         _userInputOutput.Received(1).ReadLine();
         _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);
@@ -80,7 +80,7 @@ public class GameControllerTests
         _action1.Execute(Arg.Any<GameParameters>()).Returns(new GameParameters());
         _action2.Execute(Arg.Any<GameParameters>()).Returns(new GameParameters{ IsEnd = true});
         
-        _controller.Run();
+        _controller.Run(GameParameters.Initial);
         
         _userInputOutput.Received(1).WriteLine(GameController.WelcomeMessage);
         _userInputOutput.Received(3).WriteLine("[1] Action 1");
@@ -97,7 +97,7 @@ public class GameControllerTests
         _action1.Execute(GameParameters.Initial).Returns(stateFromAction1);
         _action2.Execute(stateFromAction1).Returns(new GameParameters{ IsEnd = true});
         
-        _controller.Run();
+        _controller.Run(GameParameters.Initial);
         
         _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);
     }
@@ -109,7 +109,7 @@ public class GameControllerTests
         _userInputOutput.ReadLine().Returns("X");
         _action2.Execute(GameParameters.Initial).Returns(new GameParameters{ IsEnd = true });
 
-        _controller.Run();
+        _controller.Run(GameParameters.Initial);
         
         _action2.Received(1).Execute(GameParameters.Initial);
         _userInputOutput.Received(1).WriteLine(GameController.ThankYouMessage);

@@ -9,6 +9,13 @@ namespace Conway.Tests;
 
 public class IntegrationTests
 {
+    private const string MainMenu = @"[1] Specify grid size
+[2] Specify number of generation
+[3] Specify initial live cells
+[4] Run
+[Q] Quit
+Please enter your selection";
+
     private readonly ITestOutputHelper _testOutputHelper;
 
     public IntegrationTests(ITestOutputHelper testOutputHelper)
@@ -19,26 +26,19 @@ public class IntegrationTests
     [Fact]
     public void Should_Run_Sample_Scenario_Successfully()
     {
-        const string mainMenu =
-            @"[1] Specify grid size
-[2] Specify number of generation
-[3] Specify initial live cells
-[4] Run
-[Q] Quit
-Please enter your selection";
-
         GameScenario.WhenGameStartsWith(_testOutputHelper)
             .ThenScreenDisplays(
-                $@"{GameController.WelcomeMessage}
-{mainMenu}")
+$@"{GameController.WelcomeMessage}
+{MainMenu}"
+)
             .WhenUserEnters(InputGridSizeAction.ID)
             .ThenScreenDisplays(InputGridSizeAction.Prompt)
             .WhenUserEnters("5 5")
-            .ThenScreenDisplays(mainMenu)
+            .ThenScreenDisplays(MainMenu)
             .WhenUserEnters(InputNumberOfGenerationAction.ID)
             .ThenScreenDisplays(InputNumberOfGenerationAction.Prompt)
             .WhenUserEnters("3")
-            .ThenScreenDisplays(mainMenu)
+            .ThenScreenDisplays(MainMenu)
             .WhenUserEnters(InputLiveCellAction.ID)
             .ThenScreenDisplays(InputLiveCellAction.InputLiveCellPrompt)
             .WhenUserEnters("2 4")
@@ -58,7 +58,7 @@ Please enter your selection";
             .WhenUserEnters("5 2")
             .ThenScreenDisplays(InputLiveCellAction.InputLiveCellPrompt)
             .WhenUserEnters(Command.Exit.Value)
-            .ThenScreenDisplays(mainMenu)
+            .ThenScreenDisplays(MainMenu)
             .WhenUserEnters(RunAction.ID)
             .ThenScreenDisplays(
                 $@"Initial position
@@ -96,12 +96,37 @@ Please enter your selection";
 . . . . .
 {RunAction.EndOfGenerationPrompt}")
             .WhenUserEnters(Command.Exit.Value)
-            .ThenScreenDisplays(mainMenu)
+            .ThenScreenDisplays(MainMenu)
             .WhenUserEnters(QuitAction.ID)
             .ThenScreenDisplays("Thank you for playing Conway's Game of Life!")
             .Dispose();
     }
-    
-    
+
+    [Fact]
+    public void Should_Validate_Grid_Size()
+    {
+        var initialParameters = new GameParameters {MaxWidth = 10, MaxHeight = 15};
+        GameScenario.WhenGameStartsWith(_testOutputHelper, initialParameters)
+            .ThenScreenDisplays(
+$@"{GameController.WelcomeMessage}
+{MainMenu}"
+            )
+            .WhenUserEnters(InputGridSizeAction.ID)
+            .ThenScreenDisplays(InputGridSizeAction.Prompt)
+            .WhenUserEnters("11 5")
+            .ThenScreenDisplays(
+$@"{CommonMessages.InvalidInputMessage}
+{InputGridSizeAction.Prompt}"
+            )
+            .WhenUserEnters("7 16")
+            .ThenScreenDisplays(
+$@"{CommonMessages.InvalidInputMessage}
+{InputGridSizeAction.Prompt}"
+            )
+            .WhenUserEnters("7 5")
+            .ThenScreenDisplays(MainMenu)
+            .Dispose();
+            
+    }
     
 }
