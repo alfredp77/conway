@@ -142,7 +142,11 @@ $@"{CommonMessages.InvalidInputMessage}
     [Fact]
     public void Should_Validate_Number_Of_Generations()
     {
-        var initialParameters = new GameParameters {MaxNumberOfGeneration = 10};
+        var initialParameters = new GameParameters
+        {
+            MinNumberOfGeneration = 6,
+            MaxNumberOfGeneration = 10
+        };
         GameScenario.WhenGameStartsWith(_testOutputHelper, initialParameters)
             .ThenScreenDisplays(
                 $@"{GameController.WelcomeMessage}
@@ -165,7 +169,7 @@ $@"{CommonMessages.InvalidInputMessage}
                 $@"{CommonMessages.InvalidInputMessage}
 {InputNumberOfGenerationAction.Prompt}"
             )
-            .WhenUserEnters("0")
+            .WhenUserEnters("5")
             .ThenScreenDisplays(
                 $@"{CommonMessages.InvalidInputMessage}
 {InputNumberOfGenerationAction.Prompt}"

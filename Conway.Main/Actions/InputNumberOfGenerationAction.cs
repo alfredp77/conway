@@ -36,8 +36,8 @@ public class InputNumberOfGenerationAction : IAction
             return gameParameters;
         }
         
-        if (int.TryParse(input, out var numberOfGeneration) && 
-            numberOfGeneration <= gameParameters.MaxNumberOfGeneration &&
+        if (int.TryParse(input, out var numberOfGeneration) &&
+            (gameParameters.MaxNumberOfGeneration == 0 || numberOfGeneration <= gameParameters.MaxNumberOfGeneration) &&
             numberOfGeneration >= gameParameters.MinNumberOfGeneration)
         {
             return gameParameters with {NumberOfGeneration = numberOfGeneration};

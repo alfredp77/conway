@@ -76,4 +76,21 @@ public class InputNumberOfGenerationActionTests
         Assert.Equal(10, result.NumberOfGeneration);
         _userInputOutput.Received(1).WriteLine(CommonMessages.InvalidInputMessage);
     }
+
+    [Fact]
+    public void Should_Not_Validate_Max_Number_When_It_Is_Zero()
+    {
+        var parameters = GameParameters.Initial with
+        {
+            MaxNumberOfGeneration = 0,
+            MinNumberOfGeneration = 6
+        };
+        
+        _userInputOutput.ReadLine().Returns("8", Command.Exit.Value);
+        
+        var result = _action.Execute(parameters);
+        
+        Assert.Equal(8, result.NumberOfGeneration);
+        _userInputOutput.DidNotReceive().WriteLine(CommonMessages.InvalidInputMessage);
+    }
 }
