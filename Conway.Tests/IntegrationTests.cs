@@ -138,5 +138,40 @@ $@"{CommonMessages.InvalidInputMessage}
             .Dispose();
             
     }
-    
+
+    [Fact]
+    public void Should_Validate_Number_Of_Generations()
+    {
+        var initialParameters = new GameParameters {MaxNumberOfGeneration = 10};
+        GameScenario.WhenGameStartsWith(_testOutputHelper, initialParameters)
+            .ThenScreenDisplays(
+                $@"{GameController.WelcomeMessage}
+{MainMenu}"
+            )
+            .WhenUserEnters(InputNumberOfGenerationAction.ID)
+            .ThenScreenDisplays(InputNumberOfGenerationAction.Prompt)
+            .WhenUserEnters("xyz")
+            .ThenScreenDisplays(
+                $@"{CommonMessages.InvalidInputMessage}
+{InputNumberOfGenerationAction.Prompt}"
+            )
+            .WhenUserEnters("  ")
+            .ThenScreenDisplays(
+                $@"{CommonMessages.InvalidInputMessage}
+{InputNumberOfGenerationAction.Prompt}"
+            )
+            .WhenUserEnters("11")
+            .ThenScreenDisplays(
+                $@"{CommonMessages.InvalidInputMessage}
+{InputNumberOfGenerationAction.Prompt}"
+            )
+            .WhenUserEnters("0")
+            .ThenScreenDisplays(
+                $@"{CommonMessages.InvalidInputMessage}
+{InputNumberOfGenerationAction.Prompt}"
+            )
+            .WhenUserEnters("10")
+            .ThenScreenDisplays(MainMenu)
+            .Dispose();
+    }
 }

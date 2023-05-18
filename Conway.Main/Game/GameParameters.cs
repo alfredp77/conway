@@ -12,4 +12,6 @@ public record GameParameters
     public List<Point> InitialLiveCells { get; init; } = new();
     public int MaxWidth { get; init; }
     public int MaxHeight { get; set; }
+    public int MaxNumberOfGeneration { get; set; }
+    public int MinNumberOfGeneration { get; set; }
 }

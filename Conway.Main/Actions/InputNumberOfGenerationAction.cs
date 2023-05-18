@@ -18,19 +18,32 @@ public class InputNumberOfGenerationAction : IAction
     public string Description => "Specify number of generation";
     public GameParameters Execute(GameParameters gameParameters)
     {
-        _userInputOutput.WriteLine(Prompt);
-        var input = _userInputOutput.ReadLine();
-        try
+        GameParameters? newParameters = null;
+        while (newParameters == null)
         {
-            var numberOfGeneration = int.Parse(input);
-            return gameParameters with { NumberOfGeneration = numberOfGeneration };
+            newParameters = GetInput(gameParameters);
         }
-        catch
+        return newParameters;
+    }
+
+    private GameParameters? GetInput(GameParameters gameParameters)
+    {
+        _userInputOutput.WriteLine(Prompt);
+        
+        var input = _userInputOutput.ReadLine();
+        if (input == Command.Exit)
         {
-            // ignored
+            return gameParameters;
         }
         
+        if (int.TryParse(input, out var numberOfGeneration) && 
+            numberOfGeneration <= gameParameters.MaxNumberOfGeneration &&
+            numberOfGeneration >= gameParameters.MinNumberOfGeneration)
+        {
+            return gameParameters with {NumberOfGeneration = numberOfGeneration};
+        }
+
         _userInputOutput.WriteLine(CommonMessages.InvalidInputMessage);
-        return gameParameters;
+        return null;
     }
 }

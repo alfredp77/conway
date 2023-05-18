@@ -11,7 +11,11 @@ public class InputNumberOfGenerationActionTests
 {
     private readonly IUserInputOutput _userInputOutput;
     private readonly InputNumberOfGenerationAction _action;
-
+    private readonly GameParameters _initialParameters = GameParameters.Initial with
+    {
+        MinNumberOfGeneration = 10,
+        MaxNumberOfGeneration = 20
+    };
     public InputNumberOfGenerationActionTests()
     {
         _userInputOutput = Substitute.For<IUserInputOutput>();
@@ -21,7 +25,9 @@ public class InputNumberOfGenerationActionTests
     [Fact]
     public void Should_Prompt_For_Number_Of_Generation()
     {
-        _action.Execute(GameParameters.Initial);
+        _userInputOutput.ReadLine().Returns(Command.Exit.Value);
+        
+        _action.Execute(_initialParameters);
         
         _userInputOutput.Received(1).WriteLine("Please enter number of generation (10-20):");
     }
@@ -29,11 +35,11 @@ public class InputNumberOfGenerationActionTests
     [Fact]
     public void Should_Return_Same_GameState_When_Input_Cannot_Be_Parsed()
     {
-        _userInputOutput.ReadLine().Returns("invalid input");
+        _userInputOutput.ReadLine().Returns("invalid input", Command.Exit.Value);
         
-        var result = _action.Execute(GameParameters.Initial);
+        var result = _action.Execute(_initialParameters);
         
-        Assert.Equal(GameParameters.Initial, result);
+        Assert.Equal(_initialParameters, result);
         _userInputOutput.Received(1).WriteLine(CommonMessages.InvalidInputMessage);
     }
     
@@ -44,8 +50,30 @@ public class InputNumberOfGenerationActionTests
     {
         _userInputOutput.ReadLine().Returns(input);
         
-        var result = _action.Execute(GameParameters.Initial);
+        var result = _action.Execute(_initialParameters);
         
         Assert.Equal(expectedNumberOfGeneration, result.NumberOfGeneration);
+    }
+    
+    [Fact]
+    public void Should_Validate_Max_Number_Of_Generation()
+    {
+        _userInputOutput.ReadLine().Returns("21", "20", Command.Exit.Value);
+        
+        var result = _action.Execute(_initialParameters);
+        
+        Assert.Equal(20, result.NumberOfGeneration);
+        _userInputOutput.Received(1).WriteLine(CommonMessages.InvalidInputMessage);
+    }
+
+    [Fact]
+    public void Should_Validate_Min_Number_Of_Generation()
+    {
+        _userInputOutput.ReadLine().Returns("8", "10", Command.Exit.Value);
+        
+        var result = _action.Execute(_initialParameters);
+        
+        Assert.Equal(10, result.NumberOfGeneration);
+        _userInputOutput.Received(1).WriteLine(CommonMessages.InvalidInputMessage);
     }
 }
