@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Conway.Main;
 using Conway.Main.Game;
 using Conway.Tests.Tools;
 using Xunit;

@@ -1,4 +1,3 @@
-using Conway.Main;
 using Conway.Main.Actions;
 using Conway.Main.Game;
 using Conway.Main.Tools;

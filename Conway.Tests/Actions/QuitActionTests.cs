@@ -1,7 +1,5 @@
-using Conway.Main;
 using Conway.Main.Actions;
 using Conway.Main.Game;
-using NSubstitute;
 using Xunit;
 
 namespace Conway.Tests.Actions;
