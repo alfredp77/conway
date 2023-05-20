@@ -27,7 +27,7 @@ public class InputNumberOfGenerationProcessorTests
         
         Assert.Equal(expectedNumberOfGeneration, result.GameParameters.NumberOfGeneration);
         Assert.True(result.IsValid);
-        Assert.False(result.ShouldGetInput);
+        Assert.False(result.Continue);
     }
     
     [Theory]
@@ -38,7 +38,7 @@ public class InputNumberOfGenerationProcessorTests
         var result = _processor.ProcessInput(input, _initialParameters);
 
         Assert.False(result.IsValid);
-        Assert.True(result.ShouldGetInput);
+        Assert.True(result.Continue);
     }
     
     
@@ -55,6 +55,6 @@ public class InputNumberOfGenerationProcessorTests
 
         Assert.Equal(8, result.GameParameters.NumberOfGeneration);
         Assert.True(result.IsValid);
-        Assert.False(result.ShouldGetInput);
+        Assert.False(result.Continue);
     }
 }

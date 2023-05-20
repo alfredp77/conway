@@ -12,7 +12,7 @@ public static class GameStarter
             {
                 new MenuAction(userInputOutput, new InputGridSizeProcessor()),
                 new MenuAction(userInputOutput, new InputNumberOfGenerationProcessor()),
-                new InputLiveCellAction(userInputOutput),
+                new MenuAction(userInputOutput, new InputLiveCellProcessor()),
                 new RunAction(userInputOutput, new GameRunner(), new LiveCellsPrinter((userInputOutput))),
                 new QuitAction()
             });

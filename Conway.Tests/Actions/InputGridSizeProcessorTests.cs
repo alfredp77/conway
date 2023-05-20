@@ -20,7 +20,7 @@ public class InputGridSizeProcessorTests
         
         Assert.Equal(GameParameters.Initial, result.GameParameters);
         Assert.False(result.IsValid);
-        Assert.True(result.ShouldGetInput);
+        Assert.True(result.Continue);
     }
     
     [Theory]
@@ -33,7 +33,7 @@ public class InputGridSizeProcessorTests
         Assert.Equal(expectedWidth, result.GameParameters.Width);
         Assert.Equal(expectedHeight, result.GameParameters.Height);
         Assert.True(result.IsValid);
-        Assert.False(result.ShouldGetInput);
+        Assert.False(result.Continue);
     }
     
     [Theory]
@@ -49,6 +49,6 @@ public class InputGridSizeProcessorTests
         
         Assert.Equal(parameters, result.GameParameters);
         Assert.False(result.IsValid);
-        Assert.True(result.ShouldGetInput);
+        Assert.True(result.Continue);
     }
 }

@@ -20,7 +20,7 @@ public class MenuActionTests
         _inputProcessor.Prompt.Returns("Test Prompt");
         _inputProcessor.ProcessInput(Arg.Any<string>(), Arg.Any<GameParameters>())
             .Returns(new ProcessedInput
-                {IsValid = false, ShouldGetInput = false, GameParameters = GameParameters.Initial});
+                {IsValid = false, Continue = false, GameParameters = GameParameters.Initial});
         _action = new MenuAction(_userInputOutput, _inputProcessor);
     }
 

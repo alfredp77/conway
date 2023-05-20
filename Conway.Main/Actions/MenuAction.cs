@@ -28,7 +28,7 @@ public class MenuAction : IAction
     public GameParameters Execute(GameParameters gameParameters)
     {
         var processedInput = ProcessedInput.ValidAndContinue(gameParameters);
-        while (processedInput.ShouldGetInput)
+        while (processedInput.Continue)
         {
             _userInputOutput.WriteLine(Prompt);
             var input = _userInputOutput.ReadLine();
