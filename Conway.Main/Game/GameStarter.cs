@@ -11,7 +11,7 @@ public static class GameStarter
             new IAction[]
             {
                 new MenuAction(userInputOutput, new InputGridSizeProcessor()),
-                new InputNumberOfGenerationAction(userInputOutput),
+                new MenuAction(userInputOutput, new InputNumberOfGenerationProcessor()),
                 new InputLiveCellAction(userInputOutput),
                 new RunAction(userInputOutput, new GameRunner(), new LiveCellsPrinter((userInputOutput))),
                 new QuitAction()

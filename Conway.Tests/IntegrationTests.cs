@@ -34,8 +34,8 @@ $@"{GameController.WelcomeMessage}
             .ThenScreenDisplays(MenuAction.GetPrompt(InputGridSizeProcessor.PROMPT))
             .WhenUserEnters("5 5")
             .ThenScreenDisplays(MainMenu)
-            .WhenUserEnters(InputNumberOfGenerationAction.ID)
-            .ThenScreenDisplays(InputNumberOfGenerationAction.Prompt)
+            .WhenUserEnters(InputNumberOfGenerationProcessor.ID)
+            .ThenScreenDisplays(MenuAction.GetPrompt(InputNumberOfGenerationProcessor.PROMPT))
             .WhenUserEnters("3")
             .ThenScreenDisplays(MainMenu)
             .WhenUserEnters(InputLiveCellAction.ID)
@@ -151,27 +151,27 @@ $@"{CommonMessages.InvalidInputMessage}
                 $@"{GameController.WelcomeMessage}
 {MainMenu}"
             )
-            .WhenUserEnters(InputNumberOfGenerationAction.ID)
-            .ThenScreenDisplays(InputNumberOfGenerationAction.Prompt)
+            .WhenUserEnters(InputNumberOfGenerationProcessor.ID)
+            .ThenScreenDisplays(MenuAction.GetPrompt(InputNumberOfGenerationProcessor.PROMPT))
             .WhenUserEnters("xyz")
             .ThenScreenDisplays(
                 $@"{CommonMessages.InvalidInputMessage}
-{InputNumberOfGenerationAction.Prompt}"
+{MenuAction.GetPrompt(InputNumberOfGenerationProcessor.PROMPT)}"
             )
             .WhenUserEnters("  ")
             .ThenScreenDisplays(
                 $@"{CommonMessages.InvalidInputMessage}
-{InputNumberOfGenerationAction.Prompt}"
+{MenuAction.GetPrompt(InputNumberOfGenerationProcessor.PROMPT)}"
             )
             .WhenUserEnters("11")
             .ThenScreenDisplays(
                 $@"{CommonMessages.InvalidInputMessage}
-{InputNumberOfGenerationAction.Prompt}"
+{MenuAction.GetPrompt(InputNumberOfGenerationProcessor.PROMPT)}"
             )
             .WhenUserEnters("5")
             .ThenScreenDisplays(
                 $@"{CommonMessages.InvalidInputMessage}
-{InputNumberOfGenerationAction.Prompt}"
+{MenuAction.GetPrompt(InputNumberOfGenerationProcessor.PROMPT)}"
             )
             .WhenUserEnters("10")
             .ThenScreenDisplays(MainMenu)
