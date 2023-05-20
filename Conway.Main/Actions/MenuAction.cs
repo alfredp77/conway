@@ -3,30 +3,34 @@ using Conway.Main.Tools;
 
 namespace Conway.Main.Actions;
 
-public class InputGridSizeAction : IAction
+public class MenuAction : IAction
 {
-    public const string ID = "1";
-    public const string Prompt = "Please enter grid size in w h format (example: 10 15) or # to go back to main menu:";
     private readonly IUserInputOutput _userInputOutput;
     private readonly IInputProcessor _inputProcessor;
-    private readonly string _prompt;
 
-    public InputGridSizeAction(IUserInputOutput userInputOutput, IInputProcessor inputProcessor)
+    public MenuAction(IUserInputOutput userInputOutput, IInputProcessor inputProcessor)
     {
         _userInputOutput = userInputOutput;
         _inputProcessor = inputProcessor;
-        _prompt = $"{_inputProcessor.Prompt} or {Command.Exit} to go back to main menu:";
+        Prompt = GetPrompt(_inputProcessor.Prompt);
     }
 
-    public string Id => ID;
-    public string Description => "Specify grid size";
+    public static string GetPrompt(string inputProcessorPrompt)
+    {
+        return $"{inputProcessorPrompt} or {Command.Exit} to go back to main menu:";
+    }
+
+    public string Id => _inputProcessor.Id;
+    public string Description => _inputProcessor.Description;
     
+    public string Prompt { get; }
+
     public GameParameters Execute(GameParameters gameParameters)
     {
         var processedInput = ProcessedInput.ValidAndContinue(gameParameters);
         while (processedInput.ShouldGetInput)
         {
-            _userInputOutput.WriteLine(_prompt);
+            _userInputOutput.WriteLine(Prompt);
             var input = _userInputOutput.ReadLine();
             if (input == Command.Exit)
             {

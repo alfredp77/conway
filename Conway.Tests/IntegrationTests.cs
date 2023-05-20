@@ -30,8 +30,8 @@ Please enter your selection";
 $@"{GameController.WelcomeMessage}
 {MainMenu}"
 )
-            .WhenUserEnters(InputGridSizeAction.ID)
-            .ThenScreenDisplays(InputGridSizeAction.Prompt)
+            .WhenUserEnters(InputGridSizeProcessor.ID)
+            .ThenScreenDisplays(MenuAction.GetPrompt(InputGridSizeProcessor.PROMPT))
             .WhenUserEnters("5 5")
             .ThenScreenDisplays(MainMenu)
             .WhenUserEnters(InputNumberOfGenerationAction.ID)
@@ -110,27 +110,27 @@ $@"{GameController.WelcomeMessage}
 $@"{GameController.WelcomeMessage}
 {MainMenu}"
             )
-            .WhenUserEnters(InputGridSizeAction.ID)
-            .ThenScreenDisplays(InputGridSizeAction.Prompt)
+            .WhenUserEnters(InputGridSizeProcessor.ID)
+            .ThenScreenDisplays(MenuAction.GetPrompt(InputGridSizeProcessor.PROMPT))
             .WhenUserEnters("11 5")
             .ThenScreenDisplays(
 $@"{CommonMessages.InvalidInputMessage}
-{InputGridSizeAction.Prompt}"
+{MenuAction.GetPrompt(InputGridSizeProcessor.PROMPT)}"
             )
             .WhenUserEnters("7 16")
             .ThenScreenDisplays(
 $@"{CommonMessages.InvalidInputMessage}
-{InputGridSizeAction.Prompt}"
+{MenuAction.GetPrompt(InputGridSizeProcessor.PROMPT)}"
             )
             .WhenUserEnters("0 9")
             .ThenScreenDisplays(
                 $@"{CommonMessages.InvalidInputMessage}
-{InputGridSizeAction.Prompt}"
+{MenuAction.GetPrompt(InputGridSizeProcessor.PROMPT)}"
             )
             .WhenUserEnters("7 0")
             .ThenScreenDisplays(
                 $@"{CommonMessages.InvalidInputMessage}
-{InputGridSizeAction.Prompt}"
+{MenuAction.GetPrompt(InputGridSizeProcessor.PROMPT)}"
             )
             .WhenUserEnters("7 5")
             .ThenScreenDisplays(MainMenu)

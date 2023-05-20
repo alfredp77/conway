@@ -10,7 +10,7 @@ public static class GameStarter
         var controller = new GameController(userInputOutput,
             new IAction[]
             {
-                new InputGridSizeAction(userInputOutput, new InputGridSizeProcessor()),
+                new MenuAction(userInputOutput, new InputGridSizeProcessor()),
                 new InputNumberOfGenerationAction(userInputOutput),
                 new InputLiveCellAction(userInputOutput),
                 new RunAction(userInputOutput, new GameRunner(), new LiveCellsPrinter((userInputOutput))),
