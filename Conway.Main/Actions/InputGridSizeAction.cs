@@ -18,9 +18,8 @@ public class InputGridSizeAction : IAction
     public string Description => "Specify grid size";
     public GameParameters Execute(GameParameters gameParameters)
     {
-        var newParameters = gameParameters;
-        var shouldGetInput = true;
-        while (shouldGetInput)
+        var processedInput = new ProcessedInput(gameParameters, true);
+        while (processedInput.ShouldGetInput)
         {
             _userInputOutput.WriteLine(Prompt);
             var input = _userInputOutput.ReadLine();
@@ -29,17 +28,17 @@ public class InputGridSizeAction : IAction
                 break;
             }
 
-            (newParameters, shouldGetInput, var isValid) = ProcessInput(input, newParameters);
-            if (!isValid)
+            processedInput = ProcessInput(input, processedInput.GameParameters);
+            if (!processedInput.IsValid)
             {
                 _userInputOutput.WriteLine(CommonMessages.InvalidInputMessage);
             }
         }
 
-        return newParameters;
+        return processedInput.GameParameters;
     }
 
-    private (GameParameters newParameters, bool shouldGetInput, bool isValid) ProcessInput(string input, GameParameters gameParameters)
+    private ProcessedInput ProcessInput(string input, GameParameters gameParameters)
     {
         var tokens = input.Split(' ');
         if (int.TryParse(tokens[0], out var parsedWidth) && int.TryParse(tokens[1], out var parsedHeight))
@@ -47,12 +46,10 @@ public class InputGridSizeAction : IAction
             if ((gameParameters.MaxWidth == 0 || (parsedWidth <= gameParameters.MaxWidth && parsedWidth > 0)) &&
                 (gameParameters.MaxHeight == 0 || (parsedHeight <= gameParameters.MaxHeight && parsedHeight > 0)))
             {
-                return (gameParameters with {Width = parsedWidth, Height = parsedHeight}, false, true);
+                return new ProcessedInput(gameParameters with {Width = parsedWidth, Height = parsedHeight}, false, true);
             }
         }
-            
         
-        return (gameParameters, true, false);
+        return new ProcessedInput(gameParameters, true, false);
     }
-
 }
