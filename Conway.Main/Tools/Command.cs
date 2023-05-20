@@ -15,4 +15,8 @@ public record Command
     
     public static implicit operator Command(string value) => new(value);
 
+    public override string ToString()
+    {
+        return Value;
+    }
 }

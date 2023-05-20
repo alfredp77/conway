@@ -14,7 +14,7 @@ public class InputGridSizeActionTests
     public InputGridSizeActionTests()
     {
         _userInputOutput = Substitute.For<IUserInputOutput>();
-        _action = new InputGridSizeAction(_userInputOutput);
+        _action = new InputGridSizeAction(_userInputOutput, new InputGridSizeProcessor());
     }
 
     [Fact]
