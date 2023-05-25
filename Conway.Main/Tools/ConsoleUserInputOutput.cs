@@ -11,4 +11,13 @@ public class ConsoleUserInputOutput : IUserInputOutput
     {
         return Console.ReadLine() ?? "";
     }
+
+    public void ReadKey(string textToDisplay = "")
+    {
+        if (!string.IsNullOrEmpty(textToDisplay))
+        {
+            Console.WriteLine(textToDisplay);
+        }
+        Console.ReadKey();
+    }
 }

@@ -20,6 +20,10 @@ public class MenuAction : IAction
         return $"{inputProcessorPrompt} or {Command.Exit} to go back to main menu:";
     }
 
+    public static string GetExitPrompt(string inputProcessorPrompt)
+    {
+        return $"{inputProcessorPrompt}. Press any key to go back to main menu:";
+    }
     public string Id => _inputProcessor.Id;
     public string Description => _inputProcessor.Description;
     
@@ -27,10 +31,12 @@ public class MenuAction : IAction
 
     public GameParameters Execute(GameParameters gameParameters)
     {
-        var processedInput = ProcessedInput.ValidAndContinue(gameParameters);
+        var processedInput = _inputProcessor.Initialize(gameParameters);
         while (processedInput.Continue)
         {
-            _userInputOutput.WriteLine(Prompt);
+            var prompt = string.IsNullOrEmpty(processedInput.Prompt) ? Prompt : 
+                GetPrompt(processedInput.Prompt);
+            _userInputOutput.WriteLine(prompt);
             var input = _userInputOutput.ReadLine();
             if (input == Command.Exit)
             {
@@ -44,6 +50,10 @@ public class MenuAction : IAction
             }
         }
 
+        if (!string.IsNullOrEmpty(processedInput.Prompt))
+        {
+            _userInputOutput.ReadKey(GetExitPrompt(processedInput.Prompt));
+        }
         return processedInput.GameParameters;
     }
 }

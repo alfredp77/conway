@@ -34,6 +34,12 @@ public class TestUserInputOutput : IUserInputOutput, IDisposable
     private string _lineToReturn = string.Empty;
     public string ReadLine()
     {
+        WaitForInput();
+        return _lineToReturn;
+    }
+
+    private void WaitForInput()
+    {
         _waitForInput.Set();
         while (_waitForInput.IsSet && !_token.IsCancellationRequested)
         {
@@ -44,7 +50,18 @@ public class TestUserInputOutput : IUserInputOutput, IDisposable
         {
             throw new ApplicationException("Test cancelled");
         }
-        return _lineToReturn;
+    }
+
+    public void ReadKey(string textToDisplay = "")
+    {
+        if (!string.IsNullOrEmpty(textToDisplay))
+        {
+            lock (_lines)
+            {
+                _lines.Add(textToDisplay);
+            }
+        }
+        WaitForInput();
     }
 
     private readonly ManualResetEventSlim _waitForInput = new();

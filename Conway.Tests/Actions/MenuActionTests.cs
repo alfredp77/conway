@@ -18,6 +18,8 @@ public class MenuActionTests
         _userInputOutput = Substitute.For<IUserInputOutput>();
         _inputProcessor = Substitute.For<IInputProcessor>();
         _inputProcessor.Prompt.Returns("Test Prompt");
+        _inputProcessor.Initialize(Arg.Any<GameParameters>())
+            .Returns(c => ProcessedInput.ValidAndContinue(c.Arg<GameParameters>()));
         _inputProcessor.ProcessInput(Arg.Any<string>(), Arg.Any<GameParameters>())
             .Returns(new ProcessedInput
                 {IsValid = false, Continue = false, GameParameters = GameParameters.Initial});
@@ -40,6 +42,14 @@ public class MenuActionTests
         _action.Execute(GameParameters.Initial);
         
         _userInputOutput.Received(1).WriteLine(ExpectedPrompt);
+    }
+
+    [Fact]
+    public void Should_Initialize_Processor()
+    {
+        _action.Execute(GameParameters.Initial);
+
+        _inputProcessor.Received(1).Initialize(GameParameters.Initial);
     }
     
     [Fact]
@@ -88,5 +98,38 @@ public class MenuActionTests
         _inputProcessor.DidNotReceive().ProcessInput("input3", Arg.Any<GameParameters>());
         _userInputOutput.Received(2).WriteLine(ExpectedPrompt);
     }
-   
+
+    [Fact]
+    public void Should_Use_Prompt_From_ProcessedInput_If_Not_Empty()
+    {
+        _userInputOutput.ReadLine().Returns("input1", "input2", "input3");
+        var gameParameters = GameParameters.Initial with { Width = 1, Height = 1};
+        var nextParameters = gameParameters with { Width = 2, Height = 2};
+        var lastParameters = nextParameters with{ Width = 3, Height = 3};
+        _inputProcessor.ProcessInput("input1", gameParameters)
+            .Returns(ProcessedInput.ValidAndContinue(nextParameters, "test 123"));
+        _inputProcessor.ProcessInput("input2", nextParameters)
+            .Returns(ProcessedInput.ValidAndExit(lastParameters));
+        
+        _action.Execute(gameParameters);
+        
+        _userInputOutput.Received(1).WriteLine(MenuAction.GetPrompt("test 123"));
+    }
+
+    [Fact]
+    public void Should_Use_Prompt_From_Processed_Input_And_Wait_For_Any_Key_When_Exit_With_Prompt()
+    {
+        _userInputOutput.ReadLine().Returns("input1", "input2");
+        var gameParameters = GameParameters.Initial with { Width = 1, Height = 1};
+        var nextParameters = gameParameters with { Width = 2, Height = 2};
+        var lastParameters = nextParameters with{ Width = 3, Height = 3};
+        _inputProcessor.ProcessInput("input1", gameParameters)
+            .Returns(ProcessedInput.ValidAndContinue(nextParameters));
+        _inputProcessor.ProcessInput("input2", nextParameters)
+            .Returns(ProcessedInput.ValidAndExit(lastParameters, "bye bye"));
+        
+        _action.Execute(gameParameters);
+        
+        _userInputOutput.Received(1).ReadKey(MenuAction.GetExitPrompt("bye bye"));
+    }
 }
