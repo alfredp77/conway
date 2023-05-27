@@ -13,7 +13,7 @@ public static class GameStarter
                 new MenuAction(userInputOutput, new InputGridSizeProcessor()),
                 new MenuAction(userInputOutput, new InputNumberOfGenerationProcessor()),
                 new MenuAction(userInputOutput, new InputLiveCellProcessor()),
-                new RunAction(userInputOutput, new GameRunner(), new LiveCellsPrinter((userInputOutput))),
+                new MenuAction(userInputOutput, new RunProcessor(new GameRunner(), new LiveCellsPrinter((userInputOutput)))),
                 new QuitAction()
             });
         controller.Run(initialParameters ?? GameParameters.Initial);

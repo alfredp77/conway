@@ -40,7 +40,7 @@ public class RunProcessor : IInputProcessor
         CurrentState = _gameRunner.GenerateNextState(CurrentState);
         _printer.Print($"Generation {CurrentState.NumberOfGenerations}", CurrentState);
 
-        if (CurrentState.NumberOfGenerations == gameParameters.MaxNumberOfGeneration)
+        if (CurrentState.NumberOfGenerations == gameParameters.NumberOfGeneration)
         {
             Prompt = EndOfGenerationPrompt;
             return ProcessedInput.ValidAndExit(gameParameters, EndOfGenerationPrompt);

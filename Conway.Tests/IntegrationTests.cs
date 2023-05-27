@@ -58,7 +58,7 @@ $@"{GameController.WelcomeMessage}
             .ThenScreenDisplays(MenuAction.GetPrompt(InputLiveCellProcessor.PROMPT))
             .WhenUserEnters(Command.Exit.Value)
             .ThenScreenDisplays(MainMenu)
-            .WhenUserEnters(RunAction.ID)
+            .WhenUserEnters(RunProcessor.ID)
             .ThenScreenDisplays(
                 $@"Initial position
 . . . . .
@@ -66,7 +66,7 @@ $@"{GameController.WelcomeMessage}
 . . o o o
 . o . . o
 . . . . .
-{RunAction.NextGenerationPrompt}")
+{MenuAction.GetPrompt(RunProcessor.NextGenerationPrompt)}")
             .WhenUserEnters(">")
             .ThenScreenDisplays(
                 $@"Generation 1
@@ -75,7 +75,7 @@ $@"{GameController.WelcomeMessage}
 . o . . .
 . . o . o
 . . . . .
-{RunAction.NextGenerationPrompt}")
+{MenuAction.GetPrompt(RunProcessor.NextGenerationPrompt)}")
             .WhenUserEnters(">")
             .ThenScreenDisplays(
                 $@"Generation 2
@@ -84,7 +84,7 @@ $@"{GameController.WelcomeMessage}
 . o o . .
 . . . . .
 . . . . .
-{RunAction.NextGenerationPrompt}")
+{MenuAction.GetPrompt(RunProcessor.NextGenerationPrompt)}")
             .WhenUserEnters(">")
             .ThenScreenDisplays(
                 $@"Generation 3
@@ -93,7 +93,7 @@ $@"{GameController.WelcomeMessage}
 . o o o .
 . . . . .
 . . . . .
-{RunAction.EndOfGenerationPrompt}")
+{MenuAction.GetExitPrompt(RunProcessor.EndOfGenerationPrompt)}")
             .WhenUserEnters(Command.Exit.Value)
             .ThenScreenDisplays(MainMenu)
             .WhenUserEnters(QuitAction.ID)
