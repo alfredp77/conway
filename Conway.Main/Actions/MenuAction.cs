@@ -7,12 +7,13 @@ public class MenuAction : IAction
 {
     private readonly IUserInputOutput _userInputOutput;
     private readonly IInputProcessor _inputProcessor;
+    private readonly string _defaultPrompt;
 
     public MenuAction(IUserInputOutput userInputOutput, IInputProcessor inputProcessor)
     {
         _userInputOutput = userInputOutput;
         _inputProcessor = inputProcessor;
-        Prompt = GetPrompt(_inputProcessor.Prompt);
+        _defaultPrompt = GetPrompt(_inputProcessor.Prompt);
     }
 
     public static string GetPrompt(string inputProcessorPrompt)
@@ -27,14 +28,13 @@ public class MenuAction : IAction
     public string Id => _inputProcessor.Id;
     public string Description => _inputProcessor.Description;
     
-    public string Prompt { get; }
 
     public GameParameters Execute(GameParameters gameParameters)
     {
         var processedInput = _inputProcessor.Initialize(gameParameters);
         while (processedInput.Continue)
         {
-            var prompt = string.IsNullOrEmpty(processedInput.Prompt) ? Prompt : 
+            var prompt = string.IsNullOrEmpty(processedInput.Prompt) ? _defaultPrompt : 
                 GetPrompt(processedInput.Prompt);
             _userInputOutput.WriteLine(prompt);
             var input = _userInputOutput.ReadLine();
