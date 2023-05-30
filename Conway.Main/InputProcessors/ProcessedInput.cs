@@ -1,6 +1,6 @@
 using Conway.Main.Game;
 
-namespace Conway.Main.Actions;
+namespace Conway.Main.InputProcessors;
 
 public record ProcessedInput
 {

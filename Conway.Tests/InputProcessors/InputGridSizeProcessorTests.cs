@@ -1,8 +1,8 @@
-using Conway.Main.Actions;
 using Conway.Main.Game;
+using Conway.Main.InputProcessors;
 using Xunit;
 
-namespace Conway.Tests.Actions;
+namespace Conway.Tests.InputProcessors;
 
 public class InputGridSizeProcessorTests
 {

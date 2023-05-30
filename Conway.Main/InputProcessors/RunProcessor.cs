@@ -1,7 +1,8 @@
+using Conway.Main.Actions;
 using Conway.Main.Game;
 using Conway.Main.Tools;
 
-namespace Conway.Main.Actions;
+namespace Conway.Main.InputProcessors;
 
 public class RunProcessor : IInputProcessor
 {

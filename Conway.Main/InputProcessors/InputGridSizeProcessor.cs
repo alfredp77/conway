@@ -1,6 +1,7 @@
+using Conway.Main.Actions;
 using Conway.Main.Game;
 
-namespace Conway.Main.Actions;
+namespace Conway.Main.InputProcessors;
 
 public class InputGridSizeProcessor : IInputProcessor
 {

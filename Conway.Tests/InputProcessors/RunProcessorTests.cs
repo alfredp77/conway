@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Drawing;
-using Conway.Main.Actions;
 using Conway.Main.Game;
+using Conway.Main.InputProcessors;
 using Conway.Main.Tools;
 using NSubstitute;
 using Xunit;
 
-namespace Conway.Tests.Actions;
+namespace Conway.Tests.InputProcessors;
 
 public class RunProcessorTests
 {
