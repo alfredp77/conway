@@ -70,11 +70,11 @@ Generation 2
 Enter > to go to next generation or # to go back to main menu
 
 Generation 3
-. . o . .
+. . o o .
 . o . o .
-o . . . .
-. o . o .
-. . o . .
+. o o o .
+. . . . .
+. . . . .
 End of generation. Press any key to return to main menu
 
 ```
